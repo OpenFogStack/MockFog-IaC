@@ -1,0 +1,57 @@
+---
+
+# detach floating ips
+- name: detach floating ips
+  os_floating_ip:
+    auth: "{{ openstack.auth }}"
+    server: "{{ item.server.name }}"
+    floating_ip_address: "{{ item.server.public_v4 }}"
+    state: absent
+    purge: yes
+  with_items: "{{ nodes.results }}"
+  tags: destroy
+
+
+# destroy all vms
+- name: destroy openstack vms
+  os_server:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.name }}"
+    image: "{{ item.image }}"
+    flavor: "{{ item.flavor }}"
+    nics: "{{ item.nics }}"
+    key_name: "{{ ssh_key_name}}"
+    timeout: 180
+    state: absent
+  with_items: "{{ vms }}"
+  tags: destroy
+
+
+# destroy all routers
+- name: destroy openstack routers
+  os_router:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.name }}"
+    interfaces: "{{ item.interfaces }}"
+    wait: true
+    timeout: 180
+    state: absent
+    network: "{{ item.external_network }}"
+  with_items:
+    - "{{ routers }}"
+  when: item.name != 'mgmt-router'
+  tags: destroy
+
+
+# destroy all networks 
+- name: destroy openstack networks
+  os_network:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.name }}"
+    external: false
+    timeout: 180
+    state: absent
+  with_items:
+    - "{{ networks }}"
+  when: item.name != 'mgmt'
+  tags: destroy

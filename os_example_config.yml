@@ -1,0 +1,25 @@
+---
+#
+# Authentication
+#
+openstack:
+  auth:
+    auth_url: http://cloud.cit.tu-berlin.de:5000/v2.0 
+    username: XXX
+    password: XXX
+    project_name: MockFog
+
+
+#
+# Network configuration
+#
+external_network: tu-internal # openstack specific
+mgmt_network_name: mgmt
+
+
+
+# 
+# Instance configuration
+#
+ssh_key_name: soeren
+ssh_user: ubuntu

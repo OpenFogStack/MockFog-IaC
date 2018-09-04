@@ -1,0 +1,104 @@
+---
+- name: create ssh key
+  command: ssh-keygen -b 4096 -f "{{ ssh_key_file }}" -N ''
+  args:
+    creates: "{{ ssh_key_file }}"
+  tags: bootstrap
+
+- name: add SSH Key to OpenStack
+  os_keypair:
+    auth:
+      auth_url: "{{ openstack_auth_url }}"
+      username: "{{ openstack_auth_username }}"
+      password: "{{ openstack_auth_password }}"
+      project_name: "{{ openstack_auth_project_name }}"
+    state: present
+    name: "{{ openstack_ssh_key_name }}"
+    public_key_file: "{{ ssh_key_file }}.pub"
+  tags: bootstrap
+
+- name: Create initial openstack network
+  os_network:
+    auth:
+      auth_url: "{{ openstack_auth_url }}"
+      username: "{{ openstack_auth_username }}"
+      password: "{{ openstack_auth_password }}"
+      project_name: "{{ openstack_auth_project_name }}"
+    name: "{{ network_os_mgmt_network_name }}"
+    external: false
+    timeout: 180
+    state: present
+  tags: bootstrap
+
+- name: Create subnet
+  os_subnet:
+    auth:
+      auth_url: "{{ openstack_auth_url }}"
+      username: "{{ openstack_auth_username }}"
+      password: "{{ openstack_auth_password }}"
+      project_name: "{{ openstack_auth_project_name }}"
+    name: "{{ network_os_mgmt_subnet_name }}"
+    enable_dhcp: true
+    network_name: "{{ network_os_mgmt_network_name }}"
+    wait: true
+    cidr: "{{ network_os_mgmt_cidr }}"
+    timeout: 180
+    state: present
+  tags: bootstrap
+
+- name: create openstack router
+  os_router:
+    auth:
+      auth_url: "{{ openstack_auth_url }}"
+      username: "{{ openstack_auth_username }}"
+      password: "{{ openstack_auth_password }}"
+      project_name: "{{ openstack_auth_project_name }}"
+    name: mgmt-router
+    interfaces:
+      - net: "{{ network_os_mgmt_network_name }}"
+        subnet: "{{ network_os_mgmt_subnet_name }}"
+        portip: "{{ network_os_router_ip }}"
+    wait: true
+    timeout: 180
+    state: present
+    network: "{{ network_os_external_network}}"
+  tags: bootstrap
+
+- name: create nodemanager vm
+  os_server:
+    auth:
+      auth_url: "{{ openstack_auth_url }}"
+      username: "{{ openstack_auth_username }}"
+      password: "{{ openstack_auth_password }}"
+      project_name: "{{ openstack_auth_project_name }}"
+    name: "{{ nm_os_name }}"
+    image: "{{ nm_os_image }}"
+    flavor: "{{ nm_os_flavor }}"
+    network: "{{ network_os_mgmt_network_name }}"
+    timeout: 180
+    state: present
+    auto_ip: yes
+    key_name: "{{ openstack_ssh_key_name }}"
+  tags: bootstrap
+  register: nm
+
+- name: add openstack vms to inventory
+  add_host:
+      name: "{{ nm.server.public_v4 }}"
+      ansible_ssh_host: "{{ nm.server.public_v4 }}"
+      groups: MockFog_NM
+      ansible_user: "{{ openstack_ssh_user }}"
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o IdentitiesOnly=yes'
+      ansible_ssh_private_key_file: "{{ ssh_key_file }}"
+      hostname: "{{ nm.server.name }}"
+  tags: bootstrap
+  
+- name: create Nodemanager Info
+  no_log: true
+  copy:
+    dest: "{{ ansible_env.PWD }}/created/nodemanager_Info.txt"
+    content: |
+      \{"Created"\}:\{{{ ansible_date_time.date }} {{ ansible_date_time.time }}\}
+      Public IP: {{ item.server.public_v4 }}
+      Name:      {{ item.server.name }}
+  with_items: "{{ nm_reg.results }}"

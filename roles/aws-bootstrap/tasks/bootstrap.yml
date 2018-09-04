@@ -1,0 +1,179 @@
+---
+- name: create vpc
+  ec2_vpc_net:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    cidr_block: "{{ vpc.cidr }}"
+    name: "{{ vpc.name }}"
+    region: "{{ ec2_region }}"
+    state: present
+  register: network
+  tags: bootstrap
+
+- name: create subnet
+  ec2_vpc_subnet:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    state: present
+    vpc_id: "{{ network.vpc.id }}"
+    region: "{{ ec2_region }}"
+    map_public: "{{ 'yes' if item.name == mgmt_network_name else 'no' }}"
+    cidr: "{{ item.subnet}}"
+    tags:
+      Name: "{{ item.name }}"
+  with_items: "{{ networks }}"
+  register: subnets
+  tags: bootstrap
+
+- name: set subnet facts
+  ec2_vpc_subnet_facts:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{network.vpc.id }}"
+  register: vpc_subnet_facts
+  tags: bootstrap
+
+- name: create internet gateway for vpc
+  ec2_vpc_igw:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    vpc_id: "{{ network.vpc.id }}"
+    region: "{{ ec2_region }}"
+    tags:
+      Name: MockFog_IGW
+    state: present
+  register: igw
+  tags: bootstrap
+
+- name: create security group for MockFog connections
+  ec2_group:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    name: MockFog_SecurityGroup
+    description: MockFog security group
+    vpc_id: "{{ network.vpc.id }}"
+    region: "{{ ec2_region }}"
+    rules:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: security_group
+  tags: bootstrap
+
+- name: create security group for Public IPv4
+  ec2_group:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    name: MockFog_public
+    description: Security Group for MockFog Public IPv4
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ network.vpc.id }}"
+    rules: "{{ security_group_rules }}"
+  register: public_security_group
+  tags: bootstrap
+
+- name: create routing table
+  ec2_vpc_route_table:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    vpc_id: "{{ network.vpc.id }}"
+    region: "{{ ec2_region }}"
+    subnets: "{{ (vpc_subnet_facts.subnets | selectattr('tags.Name','equalto', mgmt_network_name ) | first).id }}"
+    tags:
+      Name: MockFog_Routing_table
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"
+  register: public_route_table
+  tags: bootstrap
+
+- name: create vms
+  ec2:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    key_name: "{{ ssh_key_name }}"
+    image: "{{ item.image }}" 
+    assign_public_ip: yes 
+    group_id: "{{ security_group.group_id }}"
+    instance_type: "{{ item.flavor }}"
+    wait: yes
+    vpc_subnet_id:  "{{ (vpc_subnet_facts.subnets | selectattr('tags.Name','equalto', 'mgmt') | first).id }}"
+    region: "{{ ec2_region }}"
+    instance_tags:
+      Name: "{{ item.name }}"
+    exact_count: 1
+    count_tag:
+      Name: "{{ item.name }}"
+  with_items: "{{ vms }}"
+  register: machines
+  tags: bootstrap
+
+- name: set facts about vms
+  ec2_instance_facts:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ network.vpc.id }}"
+  register: vm_facts
+  tags: bootstrap
+
+- name: attach mockfog interfaces
+  ec2_eni:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    security_groups: "{{ public_security_group.group_id }}"
+    state: present
+    attached: True
+    device_index: 1
+    subnet_id: "{{ (vpc_subnet_facts.subnets | selectattr('tags.Name','equalto', item.net) | first).id }}"
+    instance_id:  "{{ (vm_facts.instances | selectattr('tags.Name','equalto', item.name ) | first).instance_id }}"
+    region: "{{ ec2_region }}"
+  with_items: "{{ vms }}"
+  when:  ((vm_facts.instances | selectattr('tags.Name','equalto', item.name ) | first ).network_interfaces | length ) < 2
+  #when: not "{{ (vm_facts.instances | selectattr('tags.Name','equalto', item.name ) | first).network_interfaces[1] }}"
+  register: enis
+  tags: bootstrap
+
+- name: set delete_on_termination flag for enis
+  ec2_eni:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    eni_id: "{{ item.interface.id }}"
+    delete_on_termination: true
+  with_items: "{{ enis.results }}"
+  when: item.skipped is not defined
+  tags: bootstrap
+
+- name: Add new instances to host group
+  add_host:
+    hostname: "{{ item.tagged_instances[0].public_ip }}"
+    groupname: MockFog_nodes
+    ansible_user: "{{ ssh_user }}"
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    ansible_ssh_private_key_file: /var/lib/neo4j/mockfog.key 
+  with_items: "{{ machines.results }}"
+  tags: bootstrap
+
+- name: set facts about vms part 2
+  ec2_instance_facts:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ network.vpc.id }}"
+  register: vm_facts2
+  tags: bootstrap
+
+- name: send ips to nodemanager
+  mockfog_send_ips:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    cloud: aws
+    nodes: "{{ vm_facts2.instances }}"
+    nodemanager: http://localhost:7474
+  tags: bootstrap
+  ignore_errors: yes # TODO: delete this when nm is runningsour

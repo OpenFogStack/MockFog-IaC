@@ -1,0 +1,8 @@
+[Unit]
+After=network.target
+
+[Service]
+ExecStart=/opt/MockFog/NodeManager/nmController/runController.sh
+
+[Install]
+WantedBy=default.target

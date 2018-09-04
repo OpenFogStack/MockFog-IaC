@@ -1,0 +1,5 @@
+---
+
+- import_tasks: bootstrap.yml
+
+- import_tasks: destroy.yml

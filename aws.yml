@@ -1,0 +1,38 @@
+---
+- name: aws bootstrapping
+  hosts: localhost
+  vars_files:
+    - "{{ ansible_env.PWD }}/aws_vars.yml"
+    - "{{ ansible_env.PWD }}/aws_config.yml"
+  roles:
+    - aws-bootstrap
+    
+# avoid race condition after vms are spawned
+- name: Wait for MockFog Nodes to be ready
+  hosts: MockFog_nodes
+  gather_facts: false
+  tasks:
+    - local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        port: 22
+        delay: 5
+        timeout: 30
+      tags: bootstrap
+
+- name: install agent
+  hosts: MockFog_nodes
+  become: true
+  roles:
+    - agent
+  vars:
+    service_name: mfog-agent
+    service_description: MockFog Agent
+    service_identifier: mfog-agent
+    config_file: /etc/mfog/agent.conf
+    api_interface: eth0
+    api_port: 5000
+    repo: git@github.com:MockFog/Agent.git
+    branch: master
+    deploy_key: files/mfogagent.key
+    path: /opt/mfog-agent

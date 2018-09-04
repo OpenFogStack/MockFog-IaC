@@ -1,0 +1,84 @@
+---
+- name: create openstack networks
+  os_network:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.name }}"
+    external: false
+    timeout: 180
+    state: present
+  with_items:
+    - "{{ networks }}"
+  tags: bootstrap
+
+- name: create mgmt subnets
+  os_subnet:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.subnet_name }}"
+    enable_dhcp: true
+    network_name: "{{ item.name }}"
+    wait: true
+    cidr: "{{ item.subnet }}" 
+    timeout: 180
+    state: present
+  with_items:
+    - "{{ networks }} "
+  when: item.name == 'mgmt'
+  tags: bootstrap
+
+- name: create openstack subnets
+  os_subnet:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.subnet_name }}"
+    enable_dhcp: true
+    network_name: "{{ item.name }}"
+    wait: true
+    cidr: "{{ item.subnet }}"
+    host_routes: "{{ item.reachable_subnets }}"
+    timeout: 180
+    no_gateway_ip: yes
+    state: present
+  with_items: 
+    - "{{ networks }} "
+  when: 
+    - item.name != 'mgmt'
+    - item.reachable_subnets
+  tags: bootstrap
+
+
+- name: create single openstack subnet
+  os_subnet:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.subnet_name }}"
+    enable_dhcp: true
+    network_name: "{{ item.name }}"
+    wait: true
+    cidr: "{{ item.subnet }}" 
+    #host_routes: "{{ item.reachable_subnets }}"
+    timeout: 180
+    no_gateway_ip: yes
+    state: present
+  with_items:
+    - "{{ networks }} "
+  when:
+    - item.name != 'mgmt'
+    - item.reachable_subnets is not defined
+  tags: bootstrap
+
+- name: create single openstack subnet
+  os_subnet:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.subnet_name }}"
+    enable_dhcp: true
+    network_name: "{{ item.name }}"
+    wait: true
+    cidr: "{{ item.subnet }}"
+    #host_routes: "{{ item.reachable_subnets }}"
+    timeout: 180
+    no_gateway_ip: yes
+    state: present
+  with_items:
+    - "{{ networks }} "
+  when:
+    - item.name != 'mgmt'
+    - not item.reachable_subnets
+  tags: bootstrap

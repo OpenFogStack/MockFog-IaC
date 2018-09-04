@@ -1,0 +1,59 @@
+---
+
+- name: create openstack vms
+  os_server:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.name }}"
+    image: "{{ item.image }}"
+    flavor: "{{ item.flavor }}"
+    nics: "{{ item.nics }}"
+    auto_ip: no
+    key_name: "{{ ssh_key_name}}"
+    timeout: 180
+    state: present
+  with_items: "{{ vms }}"
+  tags: [ 'bootstrap']
+
+- name: attach floating ips to vms
+  os_floating_ip:
+    auth: "{{ openstack.auth }}"
+    server: "{{ item.name }}"
+    network: "{{ external_network }}"
+    reuse: yes
+    nat_destination: "{{ mgmt_network_name }}"
+  with_items: "{{ vms }}"
+  tags: bootstrap
+
+# this has to be done because auto_ip is not working
+# properly and we need the public ip for the inventory
+- name: get server infos with floating ips
+  os_server:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.name }}"
+    image: "{{ item.image }}"
+    flavor: "{{ item.flavor }}"
+    timeout: 180
+    state: present
+  with_items: "{{ vms }}"
+  register: nodes
+  tags: [ 'bootstrap', 'destroy']
+
+- name: add openstack vms to inventory
+  add_host:
+      name: "{{ item.server.public_v4 }}"
+      ansible_ssh_host: "{{ item.server.public_v4 }}"
+      groups: MockFog_nodes
+      ansible_user: "{{ ssh_user }}"
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o IdentitiesOnly=yes'
+      ansible_ssh_private_key_file: /var/lib/neo4j/mockfog.key
+      hostname: "{{ item.server.name }}"
+  with_items: "{{ nodes.results }}"
+  tags: bootstrap
+
+- name: send ips to nodemanager
+  mockfog_send_ips:
+    cloud: openstack
+    nodes: "{{ nodes.results }}"
+    nodemanager: http://localhost:7474
+  tags: bootstrap
+  ignore_errors: yes # TODO: delete this when nm is running

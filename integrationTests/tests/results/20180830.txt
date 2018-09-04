@@ -1,0 +1,1129 @@
+python run_functionaltests.py
+setting Credentials successful.
+test_001createDoc (tests.test_endpoints_basic.TestNMEndpoints) ... ok
+test_002deleteDoc (tests.test_endpoints_basic.TestNMEndpoints) ... ok
+test_003createNode (tests.test_endpoints_basic.TestNMEndpoints) ... ok
+test_004CreateSubnet (tests.test_endpoints_basic.TestNMEndpoints) ... ok
+test_005CreateEdge (tests.test_endpoints_basic.TestNMEndpoints) ... ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 1 Nodes in subnets with mode: all...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 75 created.
+create subnet1 in docID 75
+Status: 200
+Success. Response: {"76":{"name":"subnet1","cance
+Created subnet <built-in function id>. ID: 76
+create Node Node1 in Subnet Subnet76
+Success. Response: {"77":{"flavor":"Banana Pi","i
+Create edge from id 77 to 76.
+Success. Response: {"77":{"flavor":"Banana Pi","i
+building network with docID 75
+building network...http://10.200.1.85:7474/webapi/doc/75/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 650 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 130sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 140sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 150sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 160sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 170sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.150 ok done.
+checking if nodes are alive... 10.200.2.150 ok done.
+destroying network with docID 75
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.150, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.150, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.150, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.150, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.150, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.150, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.150, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.150, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.150, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 2 subnetworks and 1 Nodes in subnets with mode: all...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 122 created.
+create subnet1 in docID 122
+Status: 200
+Success. Response: {"123":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 123
+create subnet2 in docID 122
+Status: 200
+Success. Response: {"124":{"name":"subnet2","canc
+Created subnet <built-in function id>. ID: 124
+create Node Node1 in Subnet Subnet123
+Success. Response: {"125":{"flavor":"Banana Pi","
+Create edge from id 125 to 123.
+Success. Response: {"125":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet124
+Success. Response: {"126":{"flavor":"Banana Pi","
+Create edge from id 126 to 124.
+Success. Response: {"126":{"flavor":"Banana Pi","
+Create edge from id 123 to 124.
+Success. Response: {"123":{"name":"subnet1","canc
+Create edge from id 124 to 123.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+building network with docID 122
+building network...http://10.200.1.85:7474/webapi/doc/122/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 800 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Bootstrapping....No Error occurred until last status.
+T: 160sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 170sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 450sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.174 ok 10.200.2.153 ok done.
+checking if nodes are alive... 10.200.2.174 ok 10.200.2.153 ok done.
+destroying network with docID 122
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.174, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.174, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.174, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.174, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.174, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.174, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.174, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.174, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.174, ok. 10.200.2.153, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 20 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 3 subnetworks and 1 Nodes in subnets with mode: all...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 127 created.
+create subnet1 in docID 127
+Status: 200
+Success. Response: {"128":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 128
+create subnet2 in docID 127
+Status: 200
+Success. Response: {"129":{"name":"subnet2","canc
+Created subnet <built-in function id>. ID: 129
+create subnet3 in docID 127
+Status: 200
+Success. Response: {"130":{"name":"subnet3","canc
+Created subnet <built-in function id>. ID: 130
+create Node Node1 in Subnet Subnet128
+Success. Response: {"131":{"flavor":"Banana Pi","
+Create edge from id 131 to 128.
+Success. Response: {"131":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet129
+Success. Response: {"132":{"flavor":"Banana Pi","
+Create edge from id 132 to 129.
+Success. Response: {"132":{"flavor":"Banana Pi","
+create Node Node5 in Subnet Subnet130
+Success. Response: {"133":{"flavor":"Banana Pi","
+Create edge from id 133 to 130.
+Success. Response: {"133":{"flavor":"Banana Pi","
+Create edge from id 128 to 129.
+Success. Response: {"128":{"name":"subnet1","canc
+Create edge from id 128 to 130.
+Success. Response: {"128":{"name":"subnet1","canc
+Create edge from id 129 to 128.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+Create edge from id 129 to 130.
+Success. Response: {"129":{"name":"subnet2","canc
+Create edge from id 130 to 128.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+Create edge from id 130 to 129.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+building network with docID 127
+building network...http://10.200.1.85:7474/webapi/doc/127/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 950 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Bootstrapping....No Error occurred until last status.
+T: 160sec. Status: Bootstrapping....No Error occurred until last status.
+T: 170sec. Status: Bootstrapping....No Error occurred until last status.
+T: 180sec. Status: Bootstrapping....No Error occurred until last status.
+T: 190sec. Status: Bootstrapping....No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 450sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 460sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 470sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 480sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 490sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 500sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 510sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 520sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.178 ok 10.200.2.177 ok 10.200.2.175 ok done.
+checking if nodes are alive... 10.200.2.178 ok 10.200.2.177 ok 10.200.2.175 ok done.
+destroying network with docID 127
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.178, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.178, Time elapsed: 90 seconds.
+checking if nodes are dead... 10.200.2.178, ok. 10.200.2.177, ok. 10.200.2.175, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 30 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 4 subnetworks and 1 Nodes in subnets with mode: all...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 55 created.
+create subnet1 in docID 55
+Status: 200
+Success. Response: {"56":{"name":"subnet1","cance
+Created subnet <built-in function id>. ID: 56
+create subnet2 in docID 55
+Status: 200
+Success. Response: {"57":{"name":"subnet2","cance
+Created subnet <built-in function id>. ID: 57
+create subnet3 in docID 55
+Status: 200
+Success. Response: {"58":{"name":"subnet3","cance
+Created subnet <built-in function id>. ID: 58
+create subnet4 in docID 55
+Status: 200
+Success. Response: {"59":{"name":"subnet4","cance
+Created subnet <built-in function id>. ID: 59
+create Node Node1 in Subnet Subnet56
+Success. Response: {"140":{"flavor":"Banana Pi","
+Create edge from id 140 to 56.
+Success. Response: {"140":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet57
+Success. Response: {"141":{"flavor":"Banana Pi","
+Create edge from id 141 to 57.
+Success. Response: {"141":{"flavor":"Banana Pi","
+create Node Node5 in Subnet Subnet58
+Success. Response: {"142":{"flavor":"Banana Pi","
+Create edge from id 142 to 58.
+Success. Response: {"142":{"flavor":"Banana Pi","
+create Node Node7 in Subnet Subnet59
+Success. Response: {"143":{"flavor":"Banana Pi","
+Create edge from id 143 to 59.
+Success. Response: {"143":{"flavor":"Banana Pi","
+Create edge from id 56 to 57.
+Success. Response: {"56":{"name":"subnet1","cance
+Create edge from id 56 to 58.
+Success. Response: {"56":{"name":"subnet1","cance
+Create edge from id 56 to 59.
+Success. Response: {"56":{"name":"subnet1","cance
+Create edge from id 57 to 56.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+Create edge from id 57 to 58.
+Success. Response: {"57":{"name":"subnet2","cance
+Create edge from id 57 to 59.
+Success. Response: {"57":{"name":"subnet2","cance
+Create edge from id 58 to 56.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+Create edge from id 58 to 57.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+Create edge from id 58 to 59.
+Success. Response: {"58":{"name":"subnet3","cance
+Create edge from id 59 to 56.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+Create edge from id 59 to 57.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+Create edge from id 59 to 58.
+Request failed. Status Code: 400. Error:illegal graph: found cyclic linked nets
+building network with docID 55
+building network...http://10.200.1.85:7474/webapi/doc/55/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 1100 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Bootstrapping....No Error occurred until last status.
+T: 160sec. Status: Bootstrapping....No Error occurred until last status.
+T: 170sec. Status: Bootstrapping....No Error occurred until last status.
+T: 180sec. Status: Bootstrapping....No Error occurred until last status.
+T: 190sec. Status: Bootstrapping....No Error occurred until last status.
+T: 200sec. Status: Bootstrapping....No Error occurred until last status.
+T: 210sec. Status: Bootstrapping....No Error occurred until last status.
+T: 220sec. Status: Bootstrapping....No Error occurred until last status.
+T: 230sec. Status: Bootstrapping....No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 450sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 460sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 470sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 480sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 490sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 500sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 510sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 520sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 530sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 540sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 550sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 560sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 570sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 580sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 590sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 600sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 610sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 620sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 630sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 640sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 650sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 660sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 670sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 680sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 690sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 700sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 710sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 720sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 730sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 740sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 750sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 760sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 770sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.179 ok 10.200.2.185 ok 10.200.2.184 ok 10.200.2.183 ok done.
+checking if nodes are alive... 10.200.2.179 ok 10.200.2.185 ok 10.200.2.184 ok 10.200.2.183 ok done.
+destroying network with docID 55
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.179, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.179, Time elapsed: 90 seconds.
+checking if nodes are dead... 10.200.2.179, ok. 10.200.2.185, ok. 10.200.2.184, ok. 10.200.2.183, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 40 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 1 Nodes in subnets with mode: all...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 144 created.
+create subnet1 in docID 144
+Status: 200
+Success. Response: {"145":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 145
+create Node Node1 in Subnet Subnet145
+Success. Response: {"146":{"flavor":"Banana Pi","
+Create edge from id 146 to 145.
+Success. Response: {"146":{"flavor":"Banana Pi","
+building network with docID 144
+building network...http://10.200.1.85:7474/webapi/doc/144/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 650 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 130sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 140sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 150sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 160sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 170sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.187 ok done.
+checking if nodes are alive... 10.200.2.187 ok done.
+destroying network with docID 144
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.187, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.187, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.187, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.187, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.187, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.187, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.187, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.187, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.187, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 2 Nodes in subnets with mode: all...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 147 created.
+create subnet1 in docID 147
+Status: 200
+Success. Response: {"148":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 148
+create Node Node1 in Subnet Subnet148
+Success. Response: {"149":{"flavor":"Banana Pi","
+Create edge from id 149 to 148.
+Success. Response: {"149":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet148
+Success. Response: {"150":{"flavor":"Banana Pi","
+Create edge from id 150 to 148.
+Success. Response: {"150":{"flavor":"Banana Pi","
+building network with docID 147
+building network...http://10.200.1.85:7474/webapi/doc/147/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 800 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 160sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 170sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 450sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 460sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.21 ok 10.200.2.209 ok done.
+checking if nodes are alive... 10.200.2.21 ok 10.200.2.209 ok done.
+destroying network with docID 147
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.21, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.21, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.21, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.21, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.21, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.21, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.21, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.21, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.21, ok. 10.200.2.209, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 3 Nodes in subnets with mode: all...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 151 created.
+create subnet1 in docID 151
+Status: 200
+Success. Response: {"152":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 152
+create Node Node1 in Subnet Subnet152
+Success. Response: {"153":{"flavor":"Banana Pi","
+Create edge from id 153 to 152.
+Success. Response: {"153":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet152
+Success. Response: {"154":{"flavor":"Banana Pi","
+Create edge from id 154 to 152.
+Success. Response: {"154":{"flavor":"Banana Pi","
+create Node Node5 in Subnet Subnet152
+Success. Response: {"155":{"flavor":"Banana Pi","
+Create edge from id 155 to 152.
+Success. Response: {"155":{"flavor":"Banana Pi","
+building network with docID 151
+building network...http://10.200.1.85:7474/webapi/doc/151/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 950 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Bootstrapping....No Error occurred until last status.
+T: 160sec. Status: Bootstrapping....No Error occurred until last status.
+T: 170sec. Status: Bootstrapping....No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 450sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 460sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 470sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 480sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 490sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 500sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 510sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 520sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 530sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 540sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 550sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 560sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 570sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 580sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 590sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 600sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 610sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 620sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 630sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 640sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 650sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 660sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 670sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 680sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 690sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 700sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 710sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.217 ok 10.200.2.216 ok 10.200.2.212 ok done.
+checking if nodes are alive... 10.200.2.217 ok 10.200.2.216 ok 10.200.2.212 ok done.
+destroying network with docID 151
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.217, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.217, Time elapsed: 90 seconds.
+checking if nodes are dead... 10.200.2.217, ok. 10.200.2.216, ok. 10.200.2.212, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 1 Nodes in subnets with mode: streight...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 156 created.
+create subnet1 in docID 156
+Status: 200
+Success. Response: {"157":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 157
+create Node Node1 in Subnet Subnet157
+Success. Response: {"158":{"flavor":"Banana Pi","
+Create edge from id 158 to 157.
+Success. Response: {"158":{"flavor":"Banana Pi","
+building network with docID 156
+building network...http://10.200.1.85:7474/webapi/doc/156/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 650 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 130sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 140sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 150sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 160sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 170sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.218 ok done.
+checking if nodes are alive... 10.200.2.218 ok done.
+destroying network with docID 156
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.218, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.218, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.218, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.218, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.218, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.218, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.218, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.218, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.218, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 2 Nodes in subnets with mode: streight...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 159 created.
+create subnet1 in docID 159
+Status: 200
+Success. Response: {"160":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 160
+create Node Node1 in Subnet Subnet160
+Success. Response: {"161":{"flavor":"Banana Pi","
+Create edge from id 161 to 160.
+Success. Response: {"161":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet160
+Success. Response: {"162":{"flavor":"Banana Pi","
+Create edge from id 162 to 160.
+Success. Response: {"162":{"flavor":"Banana Pi","
+building network with docID 159
+building network...http://10.200.1.85:7474/webapi/doc/159/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 800 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Bootstrapping....No Error occurred until last status.
+T: 160sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 170sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.22 ok 10.200.2.219 ok done.
+checking if nodes are alive... 10.200.2.22 ok 10.200.2.219 ok done.
+destroying network with docID 159
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.22, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.22, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.22, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.22, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.22, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.22, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.22, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.22, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.22, ok. 10.200.2.219, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 3 Nodes in subnets with mode: streight...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 134 created.
+create subnet1 in docID 134
+Status: 200
+Success. Response: {"135":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 135
+create Node Node1 in Subnet Subnet135
+Success. Response: {"136":{"flavor":"Banana Pi","
+Create edge from id 136 to 135.
+Success. Response: {"136":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet135
+Success. Response: {"137":{"flavor":"Banana Pi","
+Create edge from id 137 to 135.
+Success. Response: {"137":{"flavor":"Banana Pi","
+create Node Node5 in Subnet Subnet135
+Success. Response: {"138":{"flavor":"Banana Pi","
+Create edge from id 138 to 135.
+Success. Response: {"138":{"flavor":"Banana Pi","
+building network with docID 134
+building network...http://10.200.1.85:7474/webapi/doc/134/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 950 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Bootstrapping....No Error occurred until last status.
+T: 160sec. Status: Bootstrapping....No Error occurred until last status.
+T: 170sec. Status: Bootstrapping....No Error occurred until last status.
+T: 180sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 190sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 200sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 210sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 450sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 460sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 470sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 480sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 490sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 500sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 510sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 520sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 530sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 540sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 550sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 560sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 570sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 580sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 590sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 600sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 610sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 620sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 630sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 640sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 650sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 660sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 670sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.225 ok 10.200.2.222 ok 10.200.2.220 ok done.
+checking if nodes are alive... 10.200.2.225 ok 10.200.2.222 ok 10.200.2.220 ok done.
+destroying network with docID 134
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.225, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.225, Time elapsed: 90 seconds.
+checking if nodes are dead... 10.200.2.225, ok. 10.200.2.222, ok. 10.200.2.220, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+test_network (tests.test_basic_network.TestBasicNetwork) ... setting Credentials successful.
+create Network with 1 subnetworks and 4 Nodes in subnets with mode: streight...
+Success. Response: {"docName":"FullyConNet4","nam
+doc FullyConNet4 with docID: 163 created.
+create subnet1 in docID 163
+Status: 200
+Success. Response: {"164":{"name":"subnet1","canc
+Created subnet <built-in function id>. ID: 164
+create Node Node1 in Subnet Subnet164
+Success. Response: {"165":{"flavor":"Banana Pi","
+Create edge from id 165 to 164.
+Success. Response: {"165":{"flavor":"Banana Pi","
+create Node Node3 in Subnet Subnet164
+Success. Response: {"166":{"flavor":"Banana Pi","
+Create edge from id 166 to 164.
+Success. Response: {"166":{"flavor":"Banana Pi","
+create Node Node5 in Subnet Subnet164
+Success. Response: {"167":{"flavor":"Banana Pi","
+Create edge from id 167 to 164.
+Success. Response: {"167":{"flavor":"Banana Pi","
+create Node Node7 in Subnet Subnet164
+Success. Response: {"168":{"flavor":"Banana Pi","
+Create edge from id 168 to 164.
+Success. Response: {"168":{"flavor":"Banana Pi","
+building network with docID 163
+building network...http://10.200.1.85:7474/webapi/doc/163/bootstrap/os
+Success. Response: {"msg":"Document instantiated.
+checking status on network instantiation...
+Max. Time Estimated: 1100 seconds...
+T: 10sec. Status: Bootstrapping....No Error occurred until last status.
+T: 20sec. Status: Bootstrapping....No Error occurred until last status.
+T: 30sec. Status: Bootstrapping....No Error occurred until last status.
+T: 40sec. Status: Bootstrapping....No Error occurred until last status.
+T: 50sec. Status: Bootstrapping....No Error occurred until last status.
+T: 60sec. Status: Bootstrapping....No Error occurred until last status.
+T: 70sec. Status: Bootstrapping....No Error occurred until last status.
+T: 80sec. Status: Bootstrapping....No Error occurred until last status.
+T: 90sec. Status: Bootstrapping....No Error occurred until last status.
+T: 100sec. Status: Bootstrapping....No Error occurred until last status.
+T: 110sec. Status: Bootstrapping....No Error occurred until last status.
+T: 120sec. Status: Bootstrapping....No Error occurred until last status.
+T: 130sec. Status: Bootstrapping....No Error occurred until last status.
+T: 140sec. Status: Bootstrapping....No Error occurred until last status.
+T: 150sec. Status: Bootstrapping....No Error occurred until last status.
+T: 160sec. Status: Bootstrapping....No Error occurred until last status.
+T: 170sec. Status: Bootstrapping....No Error occurred until last status.
+T: 180sec. Status: Bootstrapping....No Error occurred until last status.
+T: 190sec. Status: Bootstrapping....No Error occurred until last status.
+T: 200sec. Status: Bootstrapping....No Error occurred until last status.
+T: 210sec. Status: Bootstrapping....No Error occurred until last status.
+T: 220sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 230sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 240sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 250sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 260sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 270sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 280sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 290sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 300sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 310sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 320sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 330sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 340sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 350sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 360sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 370sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 380sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 390sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 400sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 410sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 420sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 430sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 440sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 450sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 460sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 470sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 480sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 490sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 500sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 510sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 520sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 530sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 540sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 550sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 560sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 570sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 580sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 590sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 600sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 610sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 620sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 630sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 640sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 650sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 660sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 670sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 680sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 690sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 700sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 710sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 720sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 730sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 740sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 750sec. Status: Ansible DHCP parsed..No Error occurred until last status.
+T: 760sec. Status: Bootstrapping done.
+Bootstrapping done.
+checking if agents created...
+checking if nodes are alive... 10.200.2.242 ok 10.200.2.247 ok 10.200.2.246 ok 10.200.2.243 ok done.
+checking if nodes are alive... 10.200.2.242 ok 10.200.2.247 ok 10.200.2.246 ok 10.200.2.243 ok done.
+destroying network with docID 163
+Success. Response: {"msg":"[LOG]: [destroy] Ansib
+checking if nodes are dead... 10.200.2.242, Time elapsed: 10 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 20 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 30 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 40 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 50 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 60 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 70 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 80 seconds.
+checking if nodes are dead... 10.200.2.242, Time elapsed: 90 seconds.
+checking if nodes are dead... 10.200.2.242, ok. 10.200.2.247, ok. 10.200.2.246, ok. 10.200.2.243, ok. done.
+nodes successfully destroyed. Waiting for networks...
+Estimated time: 10 seconds.
+ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 8116.703s
+
+OK

@@ -1,0 +1,101 @@
+---
+- name: get vpc id
+  ec2_vpc_net_facts:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    filters:
+      "tag:Name": "{{ network_aws.vpc_name }}"
+  register: network
+  tags: destroy
+
+- name: get instance id
+  ec2_instance_facts:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    filters:
+      "tag:Name": "{{ nm_aws.name }}"
+  register: vm_facts
+  tags: destroy
+
+- name: get subnet id
+  ec2_vpc_subnet_facts:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    filters:
+      "tag:Name": "{{ network_aws.mgmt_subnet_name }}"
+  register: vpc_subnet_fact
+  tags: destroy
+
+- name: destroy NM vm
+  ec2:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    state: absent
+    wait: yes
+    instance_ids: "{{ item.instance_id}}"
+  tags: destroy
+  with_items: "{{ vm_facts.instances }}"
+  when: vm_facts.instances
+
+- name: destroy subnet
+  ec2_vpc_subnet:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    state: absent
+    vpc_id: "{{ network.vpcs[0].vpc_id }}"
+    cidr: "{{ network_aws.mgmt_cidr }}"
+  tags: destroy
+
+- name: destroy routing table
+  ec2_vpc_route_table:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    vpc_id: "{{ network.vpcs[0].vpc_id }}"
+    tags:
+      Name: MockFog_Routing_table
+    state: absent
+  tags: destroy
+
+- name: destroy security group
+  ec2_group:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    name: MockFog_NM_ssh
+    region: "{{ aws.ec2_region }}"
+    state: absent
+  tags: destroy
+
+- name: destroy internet gateway
+  ec2_vpc_igw:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    vpc_id: "{{ network.vpcs[0].vpc_id }}"
+    state: absent
+  tags: destroy
+
+- name: destroy vpc
+  ec2_vpc_net:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    cidr_block: "{{ network_aws.vpc_cidr }}"
+    name: "{{ network_aws.vpc_name }}"
+    region: "{{ aws.ec2_region }}"
+    state: absent
+  tags: destroy
+
+- name: delete ssh key
+  ec2_key:
+    aws_access_key: "{{ aws.ec2_access_key }}"
+    aws_secret_key: "{{ aws.ec2_secret_access_key }}"
+    region: "{{ aws.ec2_region }}"
+    name: "{{ aws.ssh_key_name }}"
+    state: absent
+  register: ssh_key
+  tags: destroy

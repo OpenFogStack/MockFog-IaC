@@ -1,0 +1,15 @@
+---
+- name: create openstack routers
+  os_router:
+    auth: "{{ openstack.auth }}"
+    name: "{{ item.name }}"
+    interfaces: "{{ item.interfaces }}"
+    wait: true
+    timeout: 180
+    state: present
+    network: "{{ item.external_network}}"
+  with_items:
+    - "{{ routers }}"
+  tags: bootstrap
+      
+

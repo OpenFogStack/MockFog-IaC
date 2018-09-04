@@ -1,0 +1,104 @@
+---
+- name: get ansible information
+  hosts: localhost
+  tasks:
+    - name: setup
+      setup:
+
+
+- name: Get information from user
+  hosts: localhost
+  gather_facts: false
+  vars_prompt:
+    - name: "aws_ec2_access_key" 
+      prompt: "Enter your AWS Access Key" 
+      private: no
+    - name: "aws_ec2_secret_access_key" 
+      prompt: "Enter your AWS Secret Access Key" 
+      private: no
+    - name: "aws_ec2_region" 
+      prompt: "Enter your AWS region" 
+      default: eu-central-1
+      private: no
+    - name: "aws_ssh_user" 
+      prompt: "Enter the SSH User of the Instance" 
+      default: ec2-user
+      private: no
+    - name: "aws_ssh_key_name" 
+      prompt: "Enter the name for the SSH Key" 
+      default: mockfog
+      private: no 
+    - name: "nm_aws_name" 
+      prompt: "Enter the name for the NodeManager VM" 
+      default: MockFog_manager
+      private: no
+    - name: "nm_aws_image" 
+      prompt: "Enter the AMI for the NodeManager VM" 
+      default: ami-e2526d09
+      private: no
+    - name: "nm_aws_flavor" 
+      prompt: "Enter the Profile for the NodeManager VM" 
+      default: t2.small
+      private: no
+  roles:
+    - manager-bootstrap
+  post_tasks:
+    - set_fact:
+         aws_ec2_access_key: "{{ aws_ec2_access_key }}"
+         aws_ec2_secret_access_key: "{{ aws_ec2_secret_access_key }}"
+         aws_ec2_region: "{{ aws_ec2_region }}"
+         aws_ssh_user: "{{ aws_ssh_user }}"
+         aws_ssh_key_name: "{{ aws_ssh_key_name }}"
+         network_aws_vpc_name: "{{ network_aws_vpc_name }}"
+         network_aws_vpc_cidr: "{{ network_aws_vpc_cidr }}"
+         network_aws_mgmt_subnet_name: "{{ network_aws_mgmt_subnet_name }}"
+         network_aws_mgmt_cidr: "{{ network_aws_mgmt_cidr }}"
+         nm_aws_name: "{{ nm_aws_name }}"
+         nm_aws_image: "{{ nm_aws_image }}"
+         nm_aws_flavor: "{{ nm_aws_flavor }}"
+      tags: bootstrap
+  vars:
+    local:
+      cloud: aws
+
+- name: Wait for NodeManager Node to be ready
+  hosts: MockFog_NM
+  gather_facts: false
+  tasks:
+    - local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        port: 22
+        delay: 5
+        timeout: 60
+      tags: bootstrap
+
+- name: Install Nodemanager
+  hosts: MockFog_NM
+  become: yes
+  gather_facts: false
+  vars_prompt: 
+  # obsolent when github repos are public
+    - name: "github_user" 
+      prompt: "Enter your github username" 
+      private: no 
+    - name: "github_password" 
+      prompt: "Enter your github password" 
+      private: yes 
+  roles:
+   - manager-install
+  vars:
+    local:
+      cloud: aws
+    aws_ec2_access_key: "{{ hostvars['localhost']['aws_ec2_access_key'] }}"
+    aws_ec2_secret_access_key: "{{ hostvars['localhost']['aws_ec2_secret_access_key'] }}"
+    aws_ec2_region: "{{ hostvars['localhost']['aws_ec2_region'] }}"
+    aws_ssh_user: "{{ hostvars['localhost']['aws_ssh_user'] }}"
+    aws_ssh_key_name: "{{ hostvars['localhost']['aws_ssh_key_name'] }}"
+    network_aws_vpc_name: "{{ hostvars['localhost']['network_aws_vpc_name'] }}"
+    network_aws_vpc_cidr: "{{ hostvars['localhost']['network_aws_vpc_cidr'] }}"
+    network_aws_mgmt_subnet_name: "{{ hostvars['localhost']['network_aws_mgmt_subnet_name'] }}"
+    network_aws_mgmt_cidr: "{{ hostvars['localhost']['network_aws_mgmt_cidr'] }}"
+    nm_aws_name: "{{ hostvars['localhost']['nm_aws_name'] }}"
+    nm_aws_image: "{{ hostvars['localhost']['nm_aws_image'] }}"
+    nm_aws_flavor: "{{ hostvars['localhost']['nm_aws_flavor'] }}"

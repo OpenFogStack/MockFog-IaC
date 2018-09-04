@@ -1,0 +1,20 @@
+[Unit]
+Description="{{ service_description }}"
+After=syslog.target
+
+[Service]
+Type=simple
+User=root
+StandardOutput=syslog
+StandardError=syslog
+WorkingDirectory={{ path }}
+EnvironmentFile={{ config_file }}
+ExecStart={{ path }}/.venv/bin/python3.6 fog_agent.py -hostname ${HOSTNAME} \
+                                      -iface ${IFACE} \
+                                      -port ${PORT}
+SyslogIdentifier={{ service_identifier }}
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

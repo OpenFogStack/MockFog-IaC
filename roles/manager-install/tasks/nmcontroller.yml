@@ -1,0 +1,9 @@
+---
+- name: write systemd service file
+  template:
+      dest: "/etc/systemd/system/nmcontroller.service" 
+      src: nmcontroller.systemd.j2 
+      mode: 0644 
+  notify:
+    - enable nmcontroller service
+  tags: bootstrap

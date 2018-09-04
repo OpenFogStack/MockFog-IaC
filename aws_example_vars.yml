@@ -1,0 +1,68 @@
+---
+#
+# Configuration of AWS Virtual private Cloud
+#
+vpc:
+  name: MockFog
+  # CIDR out of private IPv4 address ranges is recommended
+  # see http://www.faqs.org/rfcs/rfc1918.html
+  cidr: 10.10.0.0/16 # choose /16 net
+
+#
+# (Sub-) Networks in VPC
+#
+# see https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html
+networks:
+  - name: mgmt
+    subnet_name: mgmt_sub
+    subnet: 10.10.1.0/24 # must be contained in vpc.cidr and not overlaped by other net
+  - name: cloud_net
+    subnet_name: cloud_net_sub # not beeing used by aws role
+    subnet: 10.10.2.0/24
+  - name: edge_net1
+    subnet_name: edge_net1_sub # not beeing used by aws role
+    subnet: 10.10.3.0/24
+  - name: edge_net2
+    subnet_name: edge_net2_sub # not beeing used by aws role
+    subnet: 10.10.4.0/24
+
+#
+# Instance configuration
+#
+vms:
+  - name: cloud01
+    net: cloud_net
+    image: ami-ef0dc280 # = Amazon Linux see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
+    flavor: t2.nano # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html
+
+  - name: cloud02
+    net: cloud_net
+    image: ami-ef0dc280 # = Amazon Linux
+    flavor: t2.nano
+
+  - name: edge1_01
+    net: edge_net1
+    image: ami-ef0dc280 # = Amazon Linux
+    flavor: t2.nano
+
+  - name: edge2_01
+    net: edge_net2
+    image: ami-ef0dc280 # = Amazon Linux
+    flavor: t2.nano
+
+#
+# Security Group configuration for Public IPs
+#
+security_group_rules:
+  - proto: tcp
+    ports:
+      - 22      # SSH
+      - 5000    # Agent Port
+    cidr_ip: 0.0.0.0/0
+  - proto: icmp
+    ports: -1 # allow all icmp
+    cidr_ip: 0.0.0.0/0
+
+
+
+

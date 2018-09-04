@@ -1,0 +1,126 @@
+---
+- name: get ansible information
+  hosts: localhost
+  tasks:
+    - name: setup
+      setup:
+
+- name: Get information from user
+  hosts: localhost
+  gather_facts: false
+  vars_prompt:
+    - name: "openstack_auth_url" 
+      prompt: "Enter your OpenStack Auth URL" 
+      private: no
+      default: http://cloud.cit.tu-berlin.de:5000/v2.0
+    - name: "openstack_auth_username" 
+      prompt: "Enter your OpenStack user name" 
+      private: no
+      default: mockfog-user
+    - name: "openstack_auth_password" 
+      prompt: "Enter your OpenStack password" 
+      default: 
+    - name: "openstack_auth_project_name" 
+      prompt: "Enter the OpenStack Project name" 
+      default: MockFog
+      private: no
+    - name: "openstack_ssh_user" 
+      prompt: "Enter the default user of the Cloud image you want to use" 
+      default: ubuntu
+      private: no
+    - name: "openstack_ssh_key_name" 
+      prompt: "Enter the name for the SSH Key used by OpenStack" 
+      default: mockfog
+      private: no
+    #- name: "network_os_mgmt_network_name" 
+    #  prompt: "Enter the name for the management network" 
+    #  default: mgmt
+    #  private: no
+    #- name: "network_os_mgmt_subnet_name" 
+    #  prompt: "Enter the name for the management subnet" 
+    #  default: mgmt_sub
+    #  private: no
+    #- name: "network_os_mgmt_cidr" 
+    #  prompt: "Enter the CIDR for the mgmt subnet" 
+    #  default: 192.168.100.0/24
+    #  private: no
+    #- name: "network_os_router_ip" 
+    #  prompt: "Enter the IP of the MockFog Router (must be in mgmt subnet)" 
+    #  default: 192.168.100.1
+    #  private: no
+    - name: "network_os_external_network" 
+      prompt: "Enter the external network of the OpenStack cloud" 
+      default: tu-internal
+      private: no
+    - name: "nm_os_name" 
+      prompt: "Enter the name of the NodeManager VM" 
+      default: MFog-manager
+      private: no
+    - name: "nm_os_image" 
+      prompt: "Enter the image of the NodeManager VM" 
+      default: ubuntu-16.04
+      private: no
+    - name: "nm_os_flavor" 
+      prompt: "Enter the flavor of the NodeManager VM" 
+      default: MockFog-NM
+      private: no
+  roles:
+    - manager-bootstrap
+  post_tasks:
+    - set_fact:
+        openstack_auth_url: "{{ openstack_auth_url }}"
+        openstack_auth_username: "{{ openstack_auth_username }}"
+        openstack_auth_password: "{{ openstack_auth_password }}"
+        openstack_auth_project_name: "{{ openstack_auth_project_name }}"
+        openstack_ssh_user: "{{ openstack_ssh_user }}"
+        network_os_mgmt_network_name: "{{ network_os_mgmt_network_name }}"
+        network_os_mgmt_subnet_name: "{{ network_os_mgmt_subnet_name }}"
+        network_os_mgmt_cidr: "{{ network_os_mgmt_cidr }}"
+        network_os_router_ip: "{{ network_os_router_ip }}"
+        network_os_external_network: "{{ network_os_external_network }}"
+        openstack_ssh_key_name: "{{ openstack_ssh_key_name }}"
+      tags: bootstrap
+
+  vars:
+    local:
+      cloud: openstack
+
+- name: Wait for NodeManager Node to be ready
+  hosts: MockFog_NM
+  gather_facts: false
+  tasks:
+    - local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        port: 22
+        delay: 5
+        timeout: 60
+      tags: bootstrap
+
+- name: Install Nodemanager
+  hosts: MockFog_NM
+  become: yes
+  gather_facts: false
+  vars_prompt: 
+    - name: "github_user" 
+      prompt: "Enter your github username" 
+      private: no 
+    - name: "github_password" 
+      prompt: "Enter your github password" 
+      private: yes 
+  roles:
+   - manager-install
+  vars:
+    local:
+      cloud: openstack
+    openstack_auth_url: "{{ hostvars['localhost']['openstack_auth_url'] }}"
+    openstack_auth_username: "{{ hostvars['localhost']['openstack_auth_username'] }}"
+    openstack_auth_password: "{{ hostvars['localhost']['openstack_auth_password'] }}"
+    openstack_auth_project_name: "{{ hostvars['localhost']['openstack_auth_project_name'] }}"
+    openstack_ssh_user: "{{ hostvars['localhost']['openstack_ssh_user'] }}"
+    network_os_mgmt_network_name: "{{ hostvars['localhost']['network_os_mgmt_network_name'] }}"
+    network_os_mgmt_subnet_name: "{{ hostvars['localhost']['network_os_mgmt_subnet_name'] }}"
+    network_os_mgmt_cidr: "{{ hostvars['localhost']['network_os_mgmt_cidr'] }}"
+    network_os_router_ip: "{{ hostvars['localhost']['network_os_router_ip'] }}"
+    network_os_external_network: "{{ hostvars['localhost']['network_os_external_network'] }}"
+    openstack_ssh_key_name: "{{ hostvars['localhost']['openstack_ssh_key_name'] }}"

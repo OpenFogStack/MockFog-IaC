@@ -1,0 +1,11 @@
+---
+openstack:
+  auth:
+    auth_url: "{{ openstack_auth_url }}"
+    username: "{{ openstack_auth_username }}"
+    password: "{{ openstack_auth_password }}"
+    project_name: "{{ openstack_auth_project_name }}"
+external_network: "{{ network_os_external_network }}"
+mgmt_network_name: "{{ network_os_mgmt_network_name }}"
+ssh_key_name: "{{ openstack_ssh_key_name }}"
+ssh_user: "{{ openstack_ssh_user }}"

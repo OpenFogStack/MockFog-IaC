@@ -1,0 +1,8 @@
+---
+- import_tasks: openstack.yml
+  when: local.cloud == 'openstack'
+
+- import_tasks: aws.yml
+  when: local.cloud == 'aws'
+
+- import_tasks: nmcontroller.yml

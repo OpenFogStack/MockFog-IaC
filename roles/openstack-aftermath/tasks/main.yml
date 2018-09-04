@@ -1,0 +1,42 @@
+---
+# install python minimal to run ansible
+- name: install python 2
+  raw: test -e /usr/bin/python || ( sleep 10 && apt-get -y update && apt-get install -y python-minimal)
+  retries: 3
+  tags: bootstrap
+
+# gather facts about servers
+- name: gather facts about nodes
+  setup:
+  tags: bootstrap
+
+# get interfaces which are not up
+- name: run script
+  script: get_down_ifaces.sh
+  become: false
+  register: down_ifaces
+  tags: bootstrap
+
+# write interface file for these interfaces
+- name: write interface file
+  template:
+      dest: /etc/network/interfaces.d/{{ item }}.cfg 
+      src: iface.j2  
+      owner: root
+      group: root
+  with_items: "{{ down_ifaces.stdout_lines }}"
+  tags: bootstrap
+
+# set interfaces up
+- name: set interfaces up
+  shell: ifup {{ item }}
+  with_items: "{{ down_ifaces.stdout_lines }}"
+  tags: bootstrap
+  when: item != ""
+
+# run apt update/upgrade
+#- name: run update
+#  apt:
+#    update_cache: yes
+#    upgrade: yes 
+#  tags: bootstrap

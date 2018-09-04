@@ -1,0 +1,5 @@
+---
+- name: enable nmcontroller service
+  systemd:
+    name: nmcontroller
+    state: started

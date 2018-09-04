@@ -1,0 +1,23 @@
+---
+- name: Add deadsnakes PPA
+  apt_repository:
+    repo: ppa:deadsnakes/ppa
+    state: present
+  tags: bootstrap
+
+- name: install python3.6
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - python3.6-dev
+    - python3-venv
+    - python3-pip
+  tags: bootstrap
+
+- name: install virtualenv
+  pip:
+    name: virtualenv
+    executable: pip3
+  tags: bootstrap

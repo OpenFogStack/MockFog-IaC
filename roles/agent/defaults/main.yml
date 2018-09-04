@@ -1,0 +1,11 @@
+service_name: mfog-agent
+service_user: mfog
+service_description: MockFog Agent
+service_identifier: mfog-agent
+api_interface: ens3
+api_port: 8888
+config_dir: /etc/mfog
+config_file: /etc/mfog/agent.conf
+repo: git@github.com:OpenFogStack/MockFog-Agent.git
+branch: develop 
+path: /opt/mfog-agent

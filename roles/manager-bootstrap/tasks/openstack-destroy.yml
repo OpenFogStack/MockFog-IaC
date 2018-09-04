@@ -1,0 +1,63 @@
+---
+- name: delete SSH Key
+  os_keypair:
+    auth: "{{ openstack.auth }}"
+    state: absent
+    name: "{{ openstack.ssh_key_name }}"
+    public_key_file: "{{ local.ssh_key_file }}.pub"
+  tags: destroy
+
+- name: get server infos with floating ips
+  os_server:
+    auth: "{{ openstack.auth }}"
+    name: "{{ nm_os.name }}"
+    image: "{{ nm_os.image }}"
+    flavor: "{{ nm_os.flavor }}"
+    timeout: 180
+    state: present
+  register: nm
+  tags: destroy
+
+- name: detach floating ips
+  os_floating_ip:
+    auth: "{{ openstack.auth }}"
+    server: "{{ nm.server.name }}"
+    floating_ip_address: "{{ nm.server.public_v4 }}"
+    state: absent
+    purge: yes
+  tags: destroy
+
+- name: destroy openstack vms
+  os_server:
+    auth: "{{ openstack.auth }}"
+    name: "{{ nm_os.name }}"
+    image: "{{ nm_os.image }}"
+    flavor: "{{ nm_os.flavor }}"
+    network: "{{ network_os.mgmt_network_name }}"
+    key_name: "{{ openstack.ssh_key_name }}"
+    timeout: 180
+    state: absent
+  tags: destroy
+
+- name: destroy openstack routers
+  os_router:
+    auth: "{{ openstack.auth }}"
+    name: MFog-mgmt-router
+    interfaces:
+      - net: "{{ network_os.mgmt_network_name }}"
+        subnet: "{{ network_os.mgmt_subnet_name }}"
+        portip: "{{ network_os.router_ip }}"
+    wait: true
+    timeout: 180
+    state: absent
+    network: "{{ network_os.external_network}}"
+  tags: destroy
+
+- name: destroy openstack networks
+  os_network:
+    auth: "{{ openstack.auth }}"
+    name: "{{ network_os.mgmt_network_name }}"
+    external: false
+    timeout: 180
+    state: absent
+  tags: destroy

@@ -1,0 +1,14 @@
+---
+ssh_key_file: "{{ ansible_env.PWD }}/created/mockfog"
+# OpenStack
+network_os_mgmt_network_name: mgmt
+network_os_mgmt_subnet_name: mgmt_sub
+network_os_mgmt_cidr: 192.168.100.0/24
+network_os_router_ip: 192.168.100.1
+
+
+# AWS EC2
+network_aws_vpc_name: MockFog_vpc
+network_aws_vpc_cidr: 10.0.0.0/16
+network_aws_mgmt_subnet_name: mgmt
+network_aws_mgmt_cidr: 10.0.1.0/24

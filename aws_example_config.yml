@@ -1,0 +1,21 @@
+---
+#
+#  Authentication
+#
+ec2_access_key: XXXXXXXXXXXXXXXX
+ec2_secret_access_key: XXXXXXXXX
+ec2_region: eu-central-1
+
+
+#
+# Network configuration
+#
+mgmt_network_name: mgmt
+# TODO: maybe cidr as well because it should already exist
+
+
+#
+# Instance configuration
+#
+ssh_key_name: soeren # must exist
+ssh_user: ec2-user 

@@ -1,0 +1,77 @@
+---
+
+networks:
+  - name: "{{ mgmt_network_name }}"
+    subnet_name: mgmt_sub
+    subnet: 192.168.100.0/24
+  - name: cloud_net
+    subnet_name: cloud_net_sub
+    subnet: 192.168.10.0/24
+    reachable_subnets:
+      - destination: 10.0.0.0/24
+        nexthop: 192.168.10.254 # portip of own network, see routers
+      - destination: 10.11.12.0/24
+        nexthop: 192.168.10.254 # portip of on network
+  - name: edge_net1
+    subnet_name: edge_net1_sub
+    subnet: 10.0.0.0/24
+    reachable_subnets:
+      - destination: 10.11.12.0/24
+        nexthop: 10.0.0.254 # portip of own network
+      - destination: 192.168.10.0/24
+        nexthop: 10.0.0.254 # portip of on network
+  - name: edge_net2
+    subnet_name: edge_net2_sub
+    subnet: 10.11.12.0/24
+    reachable_subnets:
+      - destination: 192.168.10.0/24
+        nexthop: 10.11.12.254 # portip of own network
+      - destination: 10.0.0.0/24
+        nexthop: 10.11.12.254 # portip of on network
+
+routers:
+  - name: mgmt-router
+    interfaces:
+      - net: mgmt
+        subnet: mgmt_sub
+        portip: 192.168.100.1
+    external_network: "{{ external_network }}"
+  - name: MockFog_router
+    interfaces:
+      - net: cloud_net
+        subnet: cloud_net_sub
+        portip: 192.168.10.254
+      - net: edge_net1
+        subnet: edge_net1_sub
+        portip: 10.0.0.254
+      - net: edge_net2
+        subnet: edge_net2_sub
+        portip: 10.11.12.254
+    external_network:
+
+vms:
+  - name: cloud01
+    image: ubuntu-16.04
+    flavor: m1.small
+    nics:
+      - net-name: mgmt
+      - net-name: cloud_net
+  - name: cloud02
+    image: ubuntu-16.04
+    flavor: m1.small
+    nics:
+      - net-name: mgmt
+      - net-name: cloud_net
+  - name: edge1_01
+    image: ubuntu-16.04
+    flavor: m1.small
+    nics:
+      - net-name: mgmt
+      - net-name: edge_net1
+  - name: edge2_01
+    image: ubuntu-16.04
+    flavor: m1.small
+    nics:
+      - net-name: mgmt
+      - net-name: edge_net2
+

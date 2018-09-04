@@ -1,0 +1,102 @@
+---
+- name: get vpc id
+  ec2_vpc_net_facts:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    filters:
+      "tag:Name": "{{ vpc.name }}"
+  register: network
+  tags: destroy
+
+- name: get instance ids
+  ec2_instance_facts:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ network.vpcs[0].vpc_id }}"
+  register: vm_facts
+  tags: destroy
+
+- name: destroy vms
+  ec2:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    state: absent
+    wait: yes
+    instance_ids: "{{ (vm_facts.instances | selectattr('tags.Name','equalto', item.name ) | first).instance_id }}"
+  tags: destroy
+  with_items: "{{ vms }}"
+  when: vm_facts.instances
+
+- name: get all network interfaces
+  ec2_eni_facts:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ network.vpcs[0].vpc_id }}"
+  register: eni_facts
+  tags: destroy
+
+- name: destroy all network interfaces
+  ec2_eni:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    force_detach: yes
+    eni_id: "{{ item.id }}"
+  with_items: "{{ eni_facts.network_interfaces }}"
+  tags: destroy
+
+- name: destroy subnets
+  ec2_vpc_subnet:
+    aws_access_key: "{{ ec2_access_key }}"
+    aws_secret_key: "{{ ec2_secret_access_key }}"
+    region: "{{ ec2_region }}"
+    state: absent
+    vpc_id: "{{ network.vpcs[0].vpc_id }}"
+    cidr: "{{ item.subnet}}"
+  with_items: "{{ networks }}"
+  tags: destroy
+
+#- name: destroy routing table
+#  ec2_vpc_route_table:
+#    aws_access_key: "{{ ec2_access_key }}"
+#    aws_secret_key: "{{ ec2_secret_access_key }}"
+#    region: "{{ ec2_region }}"
+#    vpc_id: "{{ network.vpcs[0].vpc_id }}"
+#    tags:
+#      Name: MockFog_Routing_table
+#    state: absent
+#  tags: destroy
+#
+#- name: destroy security group
+#  ec2_group:
+#    aws_access_key: "{{ ec2_access_key }}"
+#    aws_secret_key: "{{ ec2_secret_access_key }}"
+#    name: MockFog_SecurityGroup
+#    region: "{{ ec2_region }}"
+#    state: absent
+#  tags: destroy
+#
+#- name: destroy internet gateway
+#  ec2_vpc_igw:
+#    aws_access_key: "{{ ec2_access_key }}"
+#    aws_secret_key: "{{ ec2_secret_access_key }}"
+#    region: "{{ ec2_region }}"
+#    vpc_id: "{{ network.vpcs[0].vpc_id }}"
+#    state: absent
+#  tags: destroy
+#
+#- name: destroy vpc
+#  ec2_vpc_net:
+#    aws_access_key: "{{ ec2_access_key }}"
+#    aws_secret_key: "{{ ec2_secret_access_key }}"
+#    cidr_block: 10.10.0.0/16
+#    name: mockfognet
+#    region: "{{ ec2_region }}"
+#    state: absent
+#  tags: destroy

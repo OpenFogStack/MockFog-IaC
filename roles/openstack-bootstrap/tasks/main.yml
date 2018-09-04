@@ -1,0 +1,12 @@
+---
+# create network and subnet 
+- import_tasks: os_network.yml
+
+# create os router
+- import_tasks: os_router.yml
+
+# create vm
+- import_tasks: os_vm.yml
+
+# destroy testbed if --tags "destroy" is set
+- import_tasks: os_destroy.yml

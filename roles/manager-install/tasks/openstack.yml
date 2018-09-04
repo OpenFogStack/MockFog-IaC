@@ -1,0 +1,124 @@
+---
+- name: install python 2
+  raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  tags: bootstrap
+
+- name: gather facts about NM VM
+  setup:
+  tags: bootstrap
+
+- name: install prerequisites
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - git
+    - curl
+    - software-properties-common
+    - apt-transport-https
+    - ca-certificates
+    - python-pip
+  tags: bootstrap
+
+- name: install docker-py
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - docker
+    - flask
+  tags: bootstrap
+
+- name: Add Docker GPG key
+  apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+  tags: bootstrap
+
+- name: Add Docker APT repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+  tags: bootstrap
+
+- name: Install Docker
+  apt: name=docker-ce
+  tags: bootstrap
+
+- name: get Nodemanager
+  git:
+    repo=https://{{ github_user | urlencode }}:{{ github_password | urlencode }}@github.com/OpenFogStack/MockFog-NodeManager
+    dest=/opt/MockFog/NodeManager update=no
+  tags: bootstrap
+
+- name: get IaC Repo
+  git:
+    repo=https://{{ github_user | urlencode }}:{{ github_password | urlencode }}@github.com/OpenFogStack/MockFog-IaC
+    dest=/opt/MockFog/iac update=no
+    version=master
+  tags: bootstrap
+
+- name: copy ssh key to nodemanager
+  copy:
+    src: created/mockfog
+    dest: /opt/MockFog/NodeManager/mockfog.key
+    mode: 0600
+  tags: bootstrap
+
+- name: copy config file
+  template:
+      dest: /opt/MockFog/iac/os_config.yml
+      src: os_config.yml.j2 
+  tags: bootstrap
+
+# workaround 
+- name: set permissions of IaC repository for docker
+  command: chmod -R 777 /opt/MockFog/iac
+  tags: bootstrap
+
+- name: build NodeManager Docker Image
+  docker_image:
+    path: /opt/MockFog/NodeManager/
+    name: nmimage
+  tags: bootstrap
+
+- name: start NodeManager
+  docker_container:
+    name: NodeManager
+    image: nmimage
+    restart_policy: always
+    volumes:
+      - /opt/MockFog/iac:/opt/MFog-IaC
+      - /opt/MockFog/NodeManager/files:/opt/MFog-files
+    published_ports:
+      - 7474:7474
+      - 7687:7687
+  tags: bootstrap
+
+# Hack to add dynamic IP in swagger file
+- name: add public ip to nodemanger swagger file
+  replace:
+    path: /opt/MockFog/NodeManager/swagger/swagger.json
+    regexp: '(\s+)localhost\:7474(\s+.*)?$'
+    replace: '\1{{ inventory_hostname }}\:8888\2'
+  tags: bootstrap
+
+- name: start swagger
+  docker_container:
+    restart_policy: always
+    name: swagger
+    image: swaggerapi/swagger-ui
+    env:
+        SWAGGER_JSON : /mnt/swagger.json 
+    volumes:
+      - /opt/MockFog/NodeManager/swagger:/mnt
+    published_ports:
+      - 8888:8080
+  tags: bootstrap
+
+- name: start frontend
+  docker_container:
+    name: frontend
+    image: nginx
+    restart_policy: always
+    volumes:
+      - /opt/MockFog/NodeManager/src/main/webapp/static:/usr/share/nginx/html
+    published_ports:
+      - 80:80
+  tags: bootstrap

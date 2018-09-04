@@ -1,0 +1,130 @@
+---
+- name: upload ssh key
+  ec2_key:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    region: "{{ aws_ec2_region }}"
+    name: "{{ aws_ssh_key_name }}"
+    state: present
+  register: ssh_key
+  tags: bootstrap
+
+- name: save private key
+  copy:
+    content: "{{ ssh_key.key.private_key }}"
+    dest: "{{ ssh_key_file }}"
+    mode: 0600
+  when: ssh_key.changed
+  tags: bootstrap
+
+- name: create vpc
+  ec2_vpc_net:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    cidr_block: "{{ network_aws_vpc_cidr }}"
+    name: "{{ network_aws_vpc_name }}"
+    region: "{{ aws_ec2_region }}"
+    state: present
+  register: network
+  tags: bootstrap
+
+- name: create mgm subnet
+  ec2_vpc_subnet:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    state: present
+    vpc_id: "{{ network.vpc.id }}"
+    region: "{{ aws_ec2_region }}"
+    map_public: yes
+    cidr: "{{ network_aws_mgmt_cidr }}"
+    tags:
+      Name: "{{ network_aws_mgmt_subnet_name }}"
+  register: subnets
+  tags: bootstrap
+
+- name: set subnet facts
+  ec2_vpc_subnet_facts:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    region: "{{ aws_ec2_region }}"
+    filters:
+      vpc-id: "{{ network.vpc.id }}"
+  register: vpc_subnet_facts
+  tags: bootstrap
+
+- name: create internet gateway for vpc
+  ec2_vpc_igw:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    vpc_id: "{{ network.vpc.id }}"
+    region: "{{ aws_ec2_region }}"
+    tags:
+      Name: MockFog_IGW
+    state: present
+  register: igw
+  tags: bootstrap
+
+- name: allow ssh for Public IPv4 of NM
+  ec2_group:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    name: MockFog_NM_ssh
+    description: Security Group for MockFog Public IPv4 NM
+    region: "{{ aws_ec2_region }}"
+    vpc_id: "{{ network.vpc.id }}"
+    rules:
+      - proto: tcp
+        ports:
+        - 22
+        - 7474
+        - 7687
+        - 8888
+        - 80
+        cidr_ip: 0.0.0.0/0
+  register: security_group
+  tags: bootstrap
+
+- name: create default routing table
+  ec2_vpc_route_table:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    vpc_id: "{{ network.vpc.id }}"
+    region: "{{ aws_ec2_region }}"
+    subnets: "{{ (vpc_subnet_facts.subnets | selectattr('tags.Name','equalto', network_aws_mgmt_subnet_name ) | first).id }}"
+    tags:
+      Name: MockFog_Routing_table
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"
+  register: public_route_table
+  tags: bootstrap
+
+- name: create NM vm
+  ec2:
+    aws_access_key: "{{ aws_ec2_access_key }}"
+    aws_secret_key: "{{ aws_ec2_secret_access_key }}"
+    key_name: "{{ aws_ssh_key_name }}"
+    image: "{{ nm_aws_image }}" 
+    assign_public_ip: yes 
+    group_id: "{{ security_group.group_id }}"
+    instance_type: "{{ nm_aws_flavor }}"
+    wait: yes
+    vpc_subnet_id:  "{{ (vpc_subnet_facts.subnets | selectattr('tags.Name','equalto', network_aws_mgmt_subnet_name) | first).id }}"
+    region: "{{ aws_ec2_region }}"
+    instance_tags:
+      Name: "{{ nm_aws_name }}"
+    exact_count: 1
+    count_tag:
+      Name: "{{ nm_aws_name }}"
+  register: nm
+  tags: bootstrap
+
+- name: Add new instances to host group
+  add_host:
+    hostname: "{{ item.public_ip }}"
+    groupname: MockFog_NM
+    ansible_user: "{{ aws_ssh_user }}"
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o IdentitiesOnly=yes'
+    ansible_ssh_private_key_file: "{{ ssh_key_file }}"
+  with_items: "{{ nm.tagged_instances }}"
+  tags: bootstrap
