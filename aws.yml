@@ -33,6 +33,6 @@
     api_interface: eth0
     api_port: 5000
     repo: git@github.com:OpenFogStack/MockFog-Agent.git
-    branch: master
+    branch: aws
     deploy_key: files/mfogagent.key
     path: /opt/mfog-agent

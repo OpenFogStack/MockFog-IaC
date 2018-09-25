@@ -32,13 +32,14 @@
   git:
     repo=https://{{ github_user | urlencode }}:{{ github_password | urlencode }}@github.com/OpenFogStack/MockFog-NodeManager
     dest=/opt/MockFog/NodeManager update=no
+    version=aws
   tags: bootstrap
 
 - name: get IaC Repo
   git:
     repo=https://{{ github_user | urlencode }}:{{ github_password | urlencode }}@github.com/OpenFogStack/MockFog-IaC
     dest=/opt/MockFog/iac update=no
-    version=master
+    version=aws
   tags: bootstrap
 
 - name: copy ssh key to nodemanager
