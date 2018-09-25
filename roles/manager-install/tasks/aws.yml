@@ -43,7 +43,7 @@
 
 - name: copy ssh key to nodemanager
   copy:
-    src: created/mockfog
+    src: mockfog.pem
     dest: /opt/MockFog/NodeManager/mockfog.key
     mode: 0600
   tags: bootstrap

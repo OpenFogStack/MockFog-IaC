@@ -32,7 +32,7 @@
     config_file: /etc/mfog/agent.conf
     api_interface: eth0
     api_port: 5000
-    repo: git@github.com:MockFog/Agent.git
+    repo: git@github.com:OpenFogStack/MockFog-Agent.git
     branch: master
     deploy_key: files/mfogagent.key
     path: /opt/mfog-agent
