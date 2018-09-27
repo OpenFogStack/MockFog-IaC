@@ -1,12 +1,13 @@
 ---
 
-- name: install git and pip
+- name: install git, gcc and pip
   yum:
     name: "{{ item }}"
     state: latest
   with_items:
     - git
     - python-pip
+    - gcc
   tags: bootstrap
 
 - name: clone MockFog-Agent to /opt
