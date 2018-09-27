@@ -10,36 +10,36 @@
   hosts: localhost
   gather_facts: false
   vars_prompt:
-    - name: "aws_ec2_access_key" 
-      prompt: "Enter your AWS Access Key" 
-      default: 
+    - name: "aws_ec2_access_key"
+      prompt: "Enter your AWS Access Key"
+      default:
       private: no
-    - name: "aws_ec2_secret_access_key" 
-      prompt: "Enter your AWS Secret Access Key" 
-      default: 
+    - name: "aws_ec2_secret_access_key"
+      prompt: "Enter your AWS Secret Access Key"
+      default:
       private: no
-    - name: "aws_ec2_region" 
-      prompt: "Enter your AWS region" 
+    - name: "aws_ec2_region"
+      prompt: "Enter your AWS region"
       default: eu-west-1
       private: no
-    - name: "aws_ssh_user" 
-      prompt: "Enter the SSH User of the Instance" 
+    - name: "aws_ssh_user"
+      prompt: "Enter the SSH User of the Instance"
       default: ec2-user
       private: no
-    - name: "aws_ssh_key_name" 
-      prompt: "Enter the name for the SSH Key" 
+    - name: "aws_ssh_key_name"
+      prompt: "Enter the name for the SSH Key"
       default: mockfog.pem
-      private: no 
-    - name: "nm_aws_name" 
-      prompt: "Enter the name for the NodeManager VM" 
+      private: no
+    - name: "nm_aws_name"
+      prompt: "Enter the name for the NodeManager VM"
       default: MockFog_manager
       private: no
-    - name: "nm_aws_image" 
-      prompt: "Enter the AMI for the NodeManager VM" 
+    - name: "nm_aws_image"
+      prompt: "Enter the AMI for the NodeManager VM"
       default: ami-0bdb1d6c15a40392c
       private: no
-    - name: "nm_aws_flavor" 
-      prompt: "Enter the Profile for the NodeManager VM" 
+    - name: "nm_aws_flavor"
+      prompt: "Enter the Profile for the NodeManager VM"
       default: t2.small
       private: no
   roles:
@@ -80,14 +80,6 @@
   become: yes
   gather_facts: false
   # debugger: always
-  vars_prompt: 
-  # obsolent when github repos are public
-    - name: "github_user" 
-      prompt: "Enter your github username" 
-      private: no 
-    - name: "github_password" 
-      prompt: "Enter your github password" 
-      private: yes 
   roles:
    - manager-install
   vars:
