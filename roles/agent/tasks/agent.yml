@@ -1,11 +1,5 @@
 ---
 # TODO: obsolet when repo is public
-- name: copy ssh deploy key
-  copy:
-      dest: "/root/.ssh/mfogagent.key"
-      src: files/mfogagent.key # TODO: DELETE THIS AS SOON AS REPOS ARE PUBLIC 
-      mode: 0600 
-  tags: bootstrap
 
 - name: install git
   yum:
@@ -18,7 +12,6 @@
       repo: "{{ repo }}" 
       dest: "{{ path }}"
       accept_hostkey: yes
-      key_file: /root/.ssh/mfogagent.key
       version: "{{ branch }}"
   tags: bootstrap
 
