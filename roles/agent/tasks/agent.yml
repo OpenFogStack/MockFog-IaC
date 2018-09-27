@@ -1,9 +1,12 @@
 ---
 
-- name: install git
+- name: install git and pip
   yum:
-    name: git
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - git
+    - python-pip
   tags: bootstrap
 
 - name: clone MockFog-Agent to /opt
@@ -30,6 +33,14 @@
     state: latest
   tags: bootstrap
   when: ansible_distribution == 'Amazon'
+
+- name: install pip virtualenv
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - virtualenv
+  tags: bootstrap
+
 
 - name: creating the virtualenv for the agent
   pip:
