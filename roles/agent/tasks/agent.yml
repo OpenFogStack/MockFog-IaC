@@ -35,6 +35,13 @@
   tags: bootstrap
   when: ansible_distribution == 'Amazon'
 
+- name: install python3-devel
+  yum:
+    name: python3-devel
+    state: latest
+  tags: bootstrap
+  when: ansible_distribution == 'Amazon'
+
 - name: install pip virtualenv
   pip:
     name: "{{ item }}"
