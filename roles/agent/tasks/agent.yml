@@ -1,5 +1,4 @@
 ---
-# TODO: obsolet when repo is public
 
 - name: install git
   yum:
