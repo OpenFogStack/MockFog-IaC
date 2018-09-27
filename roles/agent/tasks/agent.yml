@@ -8,11 +8,12 @@
     - git
     - python-pip
     - gcc
+    - iproute-tc
   tags: bootstrap
 
 - name: clone MockFog-Agent to /opt
   git:
-      repo: "{{ repo }}" 
+      repo: "{{ repo }}"
       dest: "{{ path }}"
       accept_hostkey: yes
       version: "{{ branch }}"
@@ -52,10 +53,10 @@
 
 - name: creating the virtualenv for the agent
   pip:
-      requirements: "{{ path }}/requirements.txt" 
+      requirements: "{{ path }}/requirements.txt"
       virtualenv_python: python3
-      virtualenv: "{{ path }}/.venv" 
-      state: present 
+      virtualenv: "{{ path }}/.venv"
+      state: present
   tags: bootstrap
 
 - name: ensure configurations dir exists
@@ -72,9 +73,9 @@
 
 - name: write systemd service file
   template:
-      dest: "/etc/systemd/system/{{ service_name}}.service" 
-      src: agent.systemd.j2 
-      mode: 0644 
+      dest: "/etc/systemd/system/{{ service_name}}.service"
+      src: agent.systemd.j2
+      mode: 0644
   notify:
     - enable MockFog Agent service
   tags: bootstrap
@@ -86,4 +87,3 @@
   delegate_to: localhost
   become: no
   tags: bootstrap
-
