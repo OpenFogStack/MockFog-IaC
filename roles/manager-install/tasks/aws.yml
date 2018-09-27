@@ -30,15 +30,19 @@
 
 - name: get Nodemanager
   git:
-    repo=https://{{ github_user | urlencode }}:{{ github_password | urlencode }}@github.com/OpenFogStack/MockFog-NodeManager
-    dest=/opt/MockFog/NodeManager update=no
+    repo=https://github.com/OpenFogStack/MockFog-NodeManager.git
+    dest=/opt/MockFog/NodeManager 
+    update=yes
+    force=yes
     version=aws
   tags: bootstrap
 
 - name: get IaC Repo
   git:
-    repo=https://{{ github_user | urlencode }}:{{ github_password | urlencode }}@github.com/OpenFogStack/MockFog-IaC
-    dest=/opt/MockFog/iac update=no
+    repo=https://github.com/OpenFogStack/MockFog-IaC.git
+    dest=/opt/MockFog/iac 
+    update=yes
+    force=yes
     version=aws
   tags: bootstrap
 
@@ -63,6 +67,9 @@
 - name: build NodeManager Docker Image
   docker_image:
     path: /opt/MockFog/NodeManager/
+    force: yes
+    state: present
+    nocache: yes
     name: nmimage
   tags: bootstrap
 
