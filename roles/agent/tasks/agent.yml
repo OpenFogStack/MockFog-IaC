@@ -7,6 +7,12 @@
       mode: 0600 
   tags: bootstrap
 
+- name: install git
+  yum:
+    name: git
+    state: latest
+  tags: bootstrap
+
 - name: clone MockFog-Agent to /opt
   git:
       repo: "{{ repo }}" 
