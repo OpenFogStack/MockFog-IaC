@@ -45,7 +45,7 @@
 - name: creating the virtualenv for the agent
   pip:
       requirements: "{{ path }}/requirements.txt" 
-      virtualenv_python: python3.6 
+      virtualenv_python: python3
       virtualenv: "{{ path }}/.venv" 
       state: present 
   tags: bootstrap
