@@ -6,6 +6,7 @@ nm_aws.yml
 
 # Credentials and keys
 #*.key
+mockfog.pem
 
 # Byte-compiled / optimized / DLL files
 *.pyc

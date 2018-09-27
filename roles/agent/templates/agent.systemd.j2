@@ -9,7 +9,7 @@ StandardOutput=syslog
 StandardError=syslog
 WorkingDirectory={{ path }}
 EnvironmentFile={{ config_file }}
-ExecStart={{ path }}/.venv/bin/python3.6 fog_agent.py -hostname ${HOSTNAME} \
+ExecStart={{ path }}/.venv/bin/python3 fog_agent.py -hostname ${HOSTNAME} \
                                       -iface ${IFACE} \
                                       -port ${PORT}
 SyslogIdentifier={{ service_identifier }}

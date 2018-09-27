@@ -4,9 +4,9 @@
 install_ansible()
 {
     if [ ! -d .venv ]; then
-        virtualenv .venv 
+        virtualenv .venv
         source .venv/bin/activate
-        pip install -r requirements.txt
+        pip3 install -r requirements.txt
     else
         echo ".venv already exists"
         source .venv/bin/activate
