@@ -80,7 +80,7 @@
     image: nmimage
     volumes:
       - /opt/MockFog/iac:/opt/MFog-IaC
-      - /opt/MockFog/NodeManager/files:/opt/MFog-files
+      - /opt/MockFog/NodeManager/src/main/webapp/static/resources:/opt/MFog-files
     published_ports:
       - 7474:7474
       - 7687:7687
