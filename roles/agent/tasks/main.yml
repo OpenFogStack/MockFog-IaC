@@ -1,7 +1,7 @@
 ---
 - block:
    - import_tasks: agent.yml
-- rescue:
+  rescue:
    - name: got an error during agent installation. Inform NodeManager
      mockfog_send_status:
        nodemanager: http://localhost:7474
