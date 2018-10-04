@@ -31,19 +31,19 @@
 - name: get Nodemanager
   git:
     repo=https://github.com/OpenFogStack/MockFog-NodeManager.git
-    dest=/opt/MockFog/NodeManager 
+    dest=/opt/MockFog/NodeManager
     update=yes
     force=yes
-    version=aws_broken
+    version=aws
   tags: bootstrap
 
 - name: get IaC Repo
   git:
     repo=https://github.com/OpenFogStack/MockFog-IaC.git
-    dest=/opt/MockFog/iac 
+    dest=/opt/MockFog/iac
     update=yes
     force=yes
-    version=aws_broken
+    version=aws
   tags: bootstrap
 
 - name: copy ssh key to nodemanager
@@ -56,10 +56,10 @@
 - name: copy config file
   template:
       dest: /opt/MockFog/iac/aws_config.yml
-      src: aws_config.yml.j2 
+      src: aws_config.yml.j2
   tags: bootstrap
 
-# workaround 
+# workaround
 - name: set permissions of IaC repository for docker
   command: chmod -R 777 /opt/MockFog/iac
   tags: bootstrap
@@ -100,7 +100,7 @@
     image: swaggerapi/swagger-ui
     restart_policy: always
     env:
-        SWAGGER_JSON : /mnt/swagger.json 
+        SWAGGER_JSON : /mnt/swagger.json
     volumes:
       - /opt/MockFog/NodeManager/swagger:/mnt
     published_ports:
