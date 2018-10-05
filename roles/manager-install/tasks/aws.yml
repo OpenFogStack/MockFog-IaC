@@ -64,6 +64,11 @@
   command: chmod -R 777 /opt/MockFog/iac
   tags: bootstrap
 
+# workaround
+- name: set permissions of NodeManager repository for remote access
+  command: chmod -R 777 /opt/MockFog/NodeManager
+  tags: bootstrap
+
 - name: build NodeManager Docker Image
   docker_image:
     path: /opt/MockFog/NodeManager/
