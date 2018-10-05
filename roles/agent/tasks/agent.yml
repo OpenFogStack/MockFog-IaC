@@ -19,6 +19,11 @@
       version: "{{ branch }}"
   tags: bootstrap
 
+# workaround
+- name: set permissions of agent repository for remote access
+  command: chmod -R 777 /opt/mfog-agent
+  tags: bootstrap
+
 - name: install python3.6 (Ubuntu)
   include_tasks: ubuntu_python.yml
   when: ansible_distribution == 'Ubuntu'
