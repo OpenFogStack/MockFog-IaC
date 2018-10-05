@@ -21,7 +21,7 @@ def parse_openstack(data):
         tmp['public_addr'] =  node['openstack']['public_v4']
         node_ips[node['item']['name']] = tmp
 	
-    with open('/opt/MFog-IaC/created/agentIPs.json', 'w') as f:
+    with open('/opt/MFog-IaC/agentIPs.json', 'w') as f:
         json.dump(node_ips, f)
 	
     got_error, has_changed, result = send_data(node_ips, nm_url)
@@ -66,6 +66,9 @@ def parse_aws(data):
             }
         tmp['public_addr'] = node["public_ip_address"]
         node_ips[node['tags']['Name']] = tmp
+
+    with open('/opt/MFog-IaC/agentIPs.json', 'w') as f:
+        json.dump(node_ips, f)
 
     got_error, has_changed, result = send_data(node_ips, nm_url)
     return (got_error, has_changed, result, node_ips)
