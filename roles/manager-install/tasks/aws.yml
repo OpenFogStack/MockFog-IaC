@@ -34,7 +34,7 @@
     dest=/opt/MockFog/NodeManager
     update=yes
     force=yes
-    version=aws
+    version=aws_pingall
   tags: bootstrap
 
 - name: get IaC Repo
@@ -43,7 +43,7 @@
     dest=/opt/MockFog/iac
     update=yes
     force=yes
-    version=aws
+    version=aws_pingall
   tags: bootstrap
 
 - name: copy ssh key to nodemanager

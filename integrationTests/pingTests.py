@@ -116,7 +116,7 @@ class main():
                   self.printLine("error",["connection Failed." + str(e)[0:50]])
 
 if __name__ == "__main__":
-   agentIPpath = "/opt/MockFog/iac/created/agentIPs.json"
+   agentIPpath = "/opt/MockFog/iac/agentIPs.json"
    testMode = "remote"
    argv = sys.argv[1:]
    try:
