@@ -5,12 +5,13 @@
 
 - name: install docker
   yum:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
-  with_items:
-    - docker
-    - git
-    - python-pip
+  vars:
+    packages:
+      - docker
+      - git
+      - python-pip
   tags: bootstrap
 
 - name: service docker
@@ -22,10 +23,11 @@
 
 - name: install pip docker and flask
   pip:
-    name: "{{ item }}"
-  with_items:
-    - docker
-    - flask
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - docker
+      - flask
   tags: bootstrap
 
 - name: get Nodemanager
