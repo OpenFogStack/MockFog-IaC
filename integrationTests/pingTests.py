@@ -37,7 +37,9 @@ class main():
       if result == []:
          error = proc.stderr.readlines()
          self.printLine("error",["Error: " + str(error)])
-      else:		
+      else:
+	 for row in results:
+		self.printLine("row", row)		
          ResultsTmp = result[3].replace("\n","")         
          if ResultsTmp[0:2] == "--": ResultsTmp = result[4].replace("\n","")         
          valsArr = ResultsTmp.split(", ")
