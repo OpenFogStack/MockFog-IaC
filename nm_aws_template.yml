@@ -82,7 +82,7 @@
   roles:
     - manager-install
   vars_files:
-    - repositories.yml"
+    - repositories.yml
   vars:
     local:
            cloud: aws

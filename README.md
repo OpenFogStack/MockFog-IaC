@@ -21,7 +21,7 @@ The nodemanager play is started by either executing `./install_nodemanager.sh` o
 
 The agent play is started by running the `aws.yml` playbook.
 
-The repositories and branches that are pulled during the execution of a play are defined at `repositories.yml` (also git ignored), if it does not exist, `repositories_default.yml` will be used.
+The repositories and branches that are pulled during the execution of a play are defined at `repositories.yml.
 
 ## Configuration
 
