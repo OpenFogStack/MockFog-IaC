@@ -9,15 +9,19 @@
 
 ## Installation
 
--  `git clone git@github.com:OpenFogStack/MockFog-IaC.git`
+- Create a `nm_aws.yml` file based on the `nm_aws_template.yml`, feel free to add you aws security credentials as this file is irgnored by git.
+- Execute `install_nodemanager.sh`
+- Enter the ip of the created nodemanger in your browser
 
--  `virtualenv .venv`
+## Plays
 
--  `source .venv/bin/activate`
+Two plays exist, one for the setup/tear down of the nodemanager and one for the setup/tear down of the agents.
 
--  `pip install -r requirements.txt`
+The nodemanager play is started by either executing `./install_nodemanager.sh` or by running the `nm_aws.yml` playbook.
 
-  
+The agent play is started by running the `aws.yml` playbook.
+
+The repositories and branches that are pulled during the execution of a play are defined at `repositories.yml` (also git ignored), if it does not exist, `repositories_default.yml` will be used.
 
 ## Configuration
 
@@ -25,11 +29,11 @@
 
 1. Download OpenRC file with Cloud credentials
 
-  
+
 
 You can find it in the OpenStack Dashboard at Compute - Access and Security - API Access
 
-  
+
 
 2. Set OpenStack Environment Variables
 `source MockFog-openrc.sh`
@@ -43,8 +47,6 @@ You can find it in the OpenStack Dashboard at Compute - Access and Security - AP
 5. Add name of OpenStack SSH Key to example vars file
 i.e. `os_ssh_key_name: <ssh_key_name>`
 
-  
-
 ## Bootstrap testbed
 
 ### OpenStack
@@ -52,7 +54,7 @@ i.e. `os_ssh_key_name: <ssh_key_name>`
 -  `ansible-playbook openstack.yml --tags "bootstrap"`
    to deploy MockFog testbed in OpenStack
 
-  
+
 
 ## Destroy testbed
 
@@ -60,4 +62,3 @@ i.e. `os_ssh_key_name: <ssh_key_name>`
 
 -  `ansible-playbook openstack.yml --tags "destroy"`
    to destroy MockFog testbed in OpenStack
-   

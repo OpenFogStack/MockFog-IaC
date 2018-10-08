@@ -5,7 +5,6 @@
     - name: setup
       setup:
 
-
 - name: Get information from user
   hosts: localhost
   gather_facts: false
@@ -81,7 +80,9 @@
   gather_facts: false
   # debugger: always
   roles:
-   - manager-install
+    - manager-install
+  vars_files:
+    - repositories.yml"
   vars:
     local:
            cloud: aws

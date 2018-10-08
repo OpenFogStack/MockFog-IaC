@@ -32,20 +32,20 @@
 
 - name: get Nodemanager
   git:
-    repo=https://github.com/OpenFogStack/MockFog-NodeManager.git
+    repo="{{ nm_repo }}"
     dest=/opt/MockFog/NodeManager
     update=yes
     force=yes
-    version=master
+    version="{{ nm_branch }}"
   tags: bootstrap
 
 - name: get IaC Repo
   git:
-    repo=https://github.com/OpenFogStack/MockFog-IaC.git
+    repo="{{ iac_repo }}"
     dest=/opt/MockFog/iac
     update=yes
     force=yes
-    version=master
+    version="{{ iac_branch }}"
   tags: bootstrap
 
 - name: copy ssh key to nodemanager
