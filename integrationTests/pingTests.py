@@ -7,6 +7,7 @@ import sys, getopt
 from pingAgent import Agent 
 import formatHTML
 import time
+import socket
 
 class main():
    
@@ -16,11 +17,14 @@ class main():
       elif testMode == "local": self.localHostName = "Client"      
       
       ## TO DO: get Nodemanager IP
-      self.localHostIP = ""
+      self.localHostIP = self.getIPAdress()
       
       self.nodes = self.getNodes(agentIPpath)      
       formatHTML.setHTMLheader()
       self.pingAll()
+	  
+   def getIPAdress(self):
+		return (([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")] or [[(s.connect(("8.8.8.8", 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) + ["no IP found"])[0] 
    
    def getNodes(self,agentIPpath):
       with open(agentIPpath, 'r') as f:
@@ -43,9 +47,13 @@ class main():
 		#for row in result:
 		#	self.printLine("row", [row])
 		#self.printLine("row", ["RESULT ENDS HERE"])
-			
-		ResultsTmp = result[count+2].replace("\n","")         
-		if ResultsTmp[0:2] == "--": ResultsTmp = result[count+3].replace("\n","")         
+		
+		for x in range(len(result)):
+			ResultsTmp = result[x].replace("\n","")
+			if ResultsTmp[0:2] == "--": 
+				ResultsTmp = result[x+1].replace("\n","")
+				break
+			        
 		valsArr = ResultsTmp.split(", ")
 		valsOut = []
 		for vals in valsArr:
@@ -120,6 +128,7 @@ class main():
                   self.printLine("row",[packets,received,loss,delay])                    
                except Exception, e:
                   self.printLine("error",["connection Failed." + str(e)[0:50]])
+				  
 
 if __name__ == "__main__":
    agentIPpath = "/opt/MockFog/iac/agentIPs.json"
