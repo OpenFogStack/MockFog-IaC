@@ -38,6 +38,8 @@ class main():
          error = proc.stderr.readlines()
          self.printLine("error",["Error: " + str(error)])
       else:
+	 self.printLine("row", "Pudding")
+	 self.printLine("row", results)
 	 for row in results:
 		self.printLine("row", row)		
          ResultsTmp = result[3].replace("\n","")         
