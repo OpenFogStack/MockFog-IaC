@@ -6,7 +6,7 @@
     - "{{ ansible_env.PWD }}/aws_config.yml"
   roles:
     - aws-bootstrap
-    
+
 # avoid race condition after vms are spawned
 - name: Wait for MockFog Nodes to be ready
   hosts: MockFog_nodes
@@ -33,5 +33,5 @@
     api_interface: eth0
     api_port: 5000
     repo: https://github.com/OpenFogStack/MockFog-Agent.git
-    branch: aws
+    branch: master
     path: /opt/mfog-agent

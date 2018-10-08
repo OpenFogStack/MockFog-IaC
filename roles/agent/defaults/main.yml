@@ -7,5 +7,5 @@ api_port: 8888
 config_dir: /etc/mfog
 config_file: /etc/mfog/agent.conf
 repo: https://github.com/OpenFogStack/MockFog-Agent.git
-branch: aws 
+branch: master 
 path: /opt/mfog-agent
