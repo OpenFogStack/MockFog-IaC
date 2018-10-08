@@ -2,13 +2,14 @@
 
 - name: install git, gcc and pip
   yum:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: latest
-  with_items:
-    - git
-    - python-pip
-    - gcc
-    - iproute-tc
+  vars:
+    packages:
+      - git
+      - python-pip
+      - gcc
+      - iproute-tc
   tags: bootstrap
 
 - name: clone MockFog-Agent to /opt
@@ -50,11 +51,8 @@
 
 - name: install pip virtualenv
   pip:
-    name: "{{ item }}"
-  with_items:
-    - virtualenv
+    name: virtualenv
   tags: bootstrap
-
 
 - name: creating the virtualenv for the agent
   pip:

@@ -9,23 +9,25 @@
 
 - name: install prerequisites
   apt:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     update_cache: yes
-  with_items:
-    - git
-    - curl
-    - software-properties-common
-    - apt-transport-https
-    - ca-certificates
-    - python-pip
+  vars:
+    packages:
+      - git
+      - curl
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
+      - python-pip
   tags: bootstrap
 
 - name: install docker-py
   pip:
-    name: "{{ item }}"
-  with_items:
-    - docker
-    - flask
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - docker
+      - flask
   tags: bootstrap
 
 - name: Add Docker GPG key

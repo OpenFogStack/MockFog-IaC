@@ -7,13 +7,14 @@
 
 - name: install python3.6
   apt:
-    name: "{{ item }}"
+    name: "{{ packages }}"
     state: present
     update_cache: yes
-  with_items:
-    - python3.6-dev
-    - python3-venv
-    - python3-pip
+  vars:
+    packages:
+      - python3.6-dev
+      - python3-venv
+      - python3-pip
   tags: bootstrap
 
 - name: install virtualenv
