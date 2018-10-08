@@ -1,5 +1,5 @@
 ---
-ssh_key_file: "{{ ansible_env.PWD }}/created/mockfog"
+ssh_key_file: "{{ ansible_env.PWD }}/mockfog.pem"
 # OpenStack
 network_os_mgmt_network_name: mgmt
 network_os_mgmt_subnet_name: mgmt_sub

@@ -1,8 +1,12 @@
 # macOS
 .DS_Store
 
+# File that contains secret data, build from template
+nm_aws.yml
+
 # Credentials and keys
 #*.key
+mockfog.pem
 
 # Byte-compiled / optimized / DLL files
 *.pyc

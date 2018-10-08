@@ -1,0 +1,9 @@
+[Unit]
+After=network.target
+Description=NodeManager
+
+[Service]
+ExecStart=/opt/MockFog/NodeManager/nmController/runController.sh > /opt/MockFog/NodeManager/manuallog.txt
+
+[Install]
+WantedBy=default.target

@@ -1,2 +1,3 @@
 ---
-ssh_key_file: "{{ ansible_env.PWD }}/created/mockfog"
+ssh_key_file: "{{ ansible_env.PWD }}/mockfog.pem"
+

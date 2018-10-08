@@ -28,7 +28,7 @@ class main():
 
    def pingNode(self,ip):
       proc = subprocess.Popen(
-         "ping -c 1 -w 1 " + ip,
+         "ping -c 10 -w 100 " + ip,
          shell=True,
          stdout=subprocess.PIPE,
          stderr=subprocess.PIPE
@@ -116,7 +116,7 @@ class main():
                   self.printLine("error",["connection Failed." + str(e)[0:50]])
 
 if __name__ == "__main__":
-   agentIPpath = "/opt/MockFog/iac/created/agentIPs.json"
+   agentIPpath = "/opt/MockFog/iac/agentIPs.json"
    testMode = "remote"
    argv = sys.argv[1:]
    try:
