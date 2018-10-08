@@ -38,10 +38,10 @@ class main():
          error = proc.stderr.readlines()
          self.printLine("error",["Error: " + str(error)])
       else:
-	 self.printLine("row", "Pudding")
-	 self.printLine("row", results)
-	 for row in results:
-		self.printLine("row", row)		
+	 self.printLine("row", ["Pudding"])
+	 self.printLine("row", result)
+	 for row in result:
+		self.printLine("row", [row])		
          ResultsTmp = result[3].replace("\n","")         
          if ResultsTmp[0:2] == "--": ResultsTmp = result[4].replace("\n","")         
          valsArr = ResultsTmp.split(", ")
