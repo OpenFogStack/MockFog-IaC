@@ -27,8 +27,9 @@ class main():
          return json.load(f)
 
    def pingNode(self,ip):
+      count = 10
       proc = subprocess.Popen(
-         "ping -c 10 -w 100 " + ip,
+         "ping -c {0} -w 100 {1}".format(count, ip),
          shell=True,
          stdout=subprocess.PIPE,
          stderr=subprocess.PIPE
@@ -38,27 +39,28 @@ class main():
          error = proc.stderr.readlines()
          self.printLine("error",["Error: " + str(error)])
       else:
-	 self.printLine("row", ["Pudding"])
-	 self.printLine("row", result)
-	 for row in result:
-		self.printLine("row", [row])		
-         ResultsTmp = result[3].replace("\n","")         
-         if ResultsTmp[0:2] == "--": ResultsTmp = result[4].replace("\n","")         
-         valsArr = ResultsTmp.split(", ")
-         valsOut = []
-         for vals in valsArr:
-            valsTmp = vals.split(" ")
-            if valsTmp[0] != "+1":
-               if valsTmp[0] == "time": valsOut.append(valsTmp[1])
-               else: valsOut.append(valsTmp[0])
-         self.printLine("row",valsOut)
+		#self.printLine("row", ["RESULT STARTS HERE:"])
+		#for row in result:
+		#	self.printLine("row", [row])
+		#self.printLine("row", ["RESULT ENDS HERE"])
+			
+		ResultsTmp = result[count+2].replace("\n","")         
+		if ResultsTmp[0:2] == "--": ResultsTmp = result[count+3].replace("\n","")         
+		valsArr = ResultsTmp.split(", ")
+		valsOut = []
+		for vals in valsArr:
+			valsTmp = vals.split(" ")
+			if valsTmp[0] != "+1":
+				if valsTmp[0] == "time": valsOut.append(valsTmp[1])
+				else: valsOut.append(valsTmp[0])
+		self.printLine("row",valsOut)
    
    def printLine(self,style,vals,newLine = True):
       if testMode == "remote" : formatHTML.printPingTable(style,vals,newLine)
       elif testMode == "local" : self.printToShell(style,vals)
       
-   def printToShell(self,style):
-      print "test"
+   def printToShell(self,style,vals):
+      print vals
       # ----- TO DO ------
       # use Tabulate
    
@@ -124,7 +126,7 @@ if __name__ == "__main__":
    testMode = "remote"
    argv = sys.argv[1:]
    try:
-      opts, args = getopt.getopt(argv,"hf:o:")
+      opts, args = getopt.getopt(argv,"hf:t:")
    except getopt.GetoptError:
       print 'Wrong Argument. Use PingTest.py -f </path/to/agentIP.json> -t [local/remote]'
       sys.exit(2)
