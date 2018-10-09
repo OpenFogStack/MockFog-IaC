@@ -7,6 +7,7 @@ import sys, getopt
 from pingAgent import Agent 
 import formatHTML
 import time
+import socket
 
 class main():
    
@@ -16,19 +17,23 @@ class main():
       elif testMode == "local": self.localHostName = "Client"      
       
       ## TO DO: get Nodemanager IP
-      self.localHostIP = ""
+      self.localHostIP = self.getIPAdress()
       
       self.nodes = self.getNodes(agentIPpath)      
       formatHTML.setHTMLheader()
       self.pingAll()
+	  
+   def getIPAdress(self):
+		return (([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")] or [[(s.connect(("8.8.8.8", 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) + ["no IP found"])[0] 
    
    def getNodes(self,agentIPpath):
       with open(agentIPpath, 'r') as f:
          return json.load(f)
 
    def pingNode(self,ip):
+      count = 4
       proc = subprocess.Popen(
-         "ping -c 10 -w 100 " + ip,
+         "ping -c {0} -w 100 {1}".format(count, ip),
          shell=True,
          stdout=subprocess.PIPE,
          stderr=subprocess.PIPE
@@ -37,24 +42,36 @@ class main():
       if result == []:
          error = proc.stderr.readlines()
          self.printLine("error",["Error: " + str(error)])
-      else:		
-         ResultsTmp = result[3].replace("\n","")         
-         if ResultsTmp[0:2] == "--": ResultsTmp = result[4].replace("\n","")         
-         valsArr = ResultsTmp.split(", ")
-         valsOut = []
-         for vals in valsArr:
-            valsTmp = vals.split(" ")
-            if valsTmp[0] != "+1":
-               if valsTmp[0] == "time": valsOut.append(valsTmp[1])
-               else: valsOut.append(valsTmp[0])
-         self.printLine("row",valsOut)
+      else:
+		#self.printLine("row", ["RESULT STARTS HERE:"])
+		#for row in result:
+		#	self.printLine("row", [row])
+		#self.printLine("row", ["RESULT ENDS HERE"])
+		
+		for x in range(len(result)):
+			ResultsTmp = result[x].replace("\n","")			
+			if ResultsTmp[0:2] == "--": 
+				ResultsTmp = result[x+1].replace("\n","")
+				ResultsTmp2 = result[x+2].replace("\n","")
+				break
+			        
+		valsArr = ResultsTmp.split(", ")
+		valsOut = []
+		for vals in valsArr:
+			valsTmp = vals.split(" ")
+			if valsTmp[1] == "packets": valsOut.append(valsTmp[0])
+			if valsTmp[1] == "received": valsOut.append(valsTmp[0])
+			#if valsTmp[0] == "time": valsOut.append(valsTmp[1])
+			if valsTmp[0].endswith('%'): valsOut.append(valsTmp[0])
+		valsOut.append(ResultsTmp2.split("/")[4]  + "ms")
+		self.printLine("row",valsOut)
    
    def printLine(self,style,vals,newLine = True):
       if testMode == "remote" : formatHTML.printPingTable(style,vals,newLine)
       elif testMode == "local" : self.printToShell(style,vals)
       
-   def printToShell(self,style):
-      print "test"
+   def printToShell(self,style,vals):
+      print vals
       # ----- TO DO ------
       # use Tabulate
    
@@ -109,18 +126,19 @@ class main():
                   res = res[res.keys()[0]]
                   packets = res[res.keys()[4]]
                   received = res[res.keys()[2]]
-                  loss = res[res.keys()[1]]
-                  delay = res[res.keys()[10]]
+                  loss = str(res[res.keys()[1]]) + "%"
+                  delay = str(res[res.keys()[10]]) + "ms"
                   self.printLine("row",[packets,received,loss,delay])                    
                except Exception, e:
                   self.printLine("error",["connection Failed." + str(e)[0:50]])
+				  
 
 if __name__ == "__main__":
    agentIPpath = "/opt/MockFog/iac/agentIPs.json"
    testMode = "remote"
    argv = sys.argv[1:]
    try:
-      opts, args = getopt.getopt(argv,"hf:o:")
+      opts, args = getopt.getopt(argv,"hf:t:")
    except getopt.GetoptError:
       print 'Wrong Argument. Use PingTest.py -f </path/to/agentIP.json> -t [local/remote]'
       sys.exit(2)

@@ -82,6 +82,10 @@
         - 8888
         - 80
         cidr_ip: 0.0.0.0/0
+      - proto: icmp
+        from_port: -1
+        to_port: -1
+        cidr_ip: 0.0.0.0/0
   register: security_group
   tags: bootstrap
 
