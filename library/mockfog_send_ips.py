@@ -54,18 +54,19 @@ def parse_aws(data):
     # probably not the most efficient way
     for node in nodes:
         tmp = {}
-        for net in node['network_interfaces']:
-            subnet_name = ec2_get_subnet_name(aws_access_key,
+	if node['tags']['Name'] !='MockFog_manager':
+            for net in node['network_interfaces']:
+                subnet_name = ec2_get_subnet_name(aws_access_key,
                                               aws_secret_key,
                                               aws_region,
                                               net['subnet_id']
                                               )
-            tmp[subnet_name] = { 
-                "addr": net["private_ip_address"],
-                "mac": net["mac_address"]
-            }
-        tmp['public_addr'] = node["public_ip_address"]
-        node_ips[node['tags']['Name']] = tmp
+                tmp[subnet_name] = { 
+                    "addr": net["private_ip_address"],
+                    "mac": net["mac_address"]
+                }
+            tmp['public_addr'] = node["public_ip_address"]
+            node_ips[node['tags']['Name']] = tmp
 
     with open('/opt/MFog-IaC/agentIPs.json', 'w') as f:
         json.dump(node_ips, f)
