@@ -31,7 +31,7 @@ class main():
          return json.load(f)
 
    def pingNode(self,ip):
-      count = 10
+      count = 4
       proc = subprocess.Popen(
          "ping -c {0} -w 100 {1}".format(count, ip),
          shell=True,
@@ -49,18 +49,21 @@ class main():
 		#self.printLine("row", ["RESULT ENDS HERE"])
 		
 		for x in range(len(result)):
-			ResultsTmp = result[x].replace("\n","")
+			ResultsTmp = result[x].replace("\n","")			
 			if ResultsTmp[0:2] == "--": 
 				ResultsTmp = result[x+1].replace("\n","")
+				ResultsTmp2 = result[x+2].replace("\n","")
 				break
 			        
 		valsArr = ResultsTmp.split(", ")
 		valsOut = []
 		for vals in valsArr:
 			valsTmp = vals.split(" ")
-			if valsTmp[0] != "+1":
-				if valsTmp[0] == "time": valsOut.append(valsTmp[1])
-				else: valsOut.append(valsTmp[0])
+			if valsTmp[1] == "packets": valsOut.append(valsTmp[0])
+			if valsTmp[1] == "received": valsOut.append(valsTmp[0])
+			#if valsTmp[0] == "time": valsOut.append(valsTmp[1])
+			if valsTmp[0].endswith('%'): valsOut.append(valsTmp[0])
+		valsOut.append(ResultsTmp2.split("/")[4]  + "ms")
 		self.printLine("row",valsOut)
    
    def printLine(self,style,vals,newLine = True):
@@ -123,8 +126,8 @@ class main():
                   res = res[res.keys()[0]]
                   packets = res[res.keys()[4]]
                   received = res[res.keys()[2]]
-                  loss = res[res.keys()[1]]
-                  delay = res[res.keys()[10]]
+                  loss = str(res[res.keys()[1]]) + "%"
+                  delay = str(res[res.keys()[10]]) + "ms"
                   self.printLine("row",[packets,received,loss,delay])                    
                except Exception, e:
                   self.printLine("error",["connection Failed." + str(e)[0:50]])
