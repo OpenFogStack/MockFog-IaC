@@ -1,6 +1,6 @@
 ---
 
-- name: install git, gcc and pip
+- name: install git, gcc, pip and iperf
   yum:
     name: "{{ packages }}"
     state: latest
@@ -10,6 +10,7 @@
       - python-pip
       - gcc
       - iproute-tc
+      - iperf3
   tags: bootstrap
 
 - name: clone MockFog-Agent to /opt
