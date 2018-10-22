@@ -1,5 +1,5 @@
 ---
-- name: enable MockFog Agent service
-  systemd:
-    name: "{{ service_name}}"
-    state: started
+#- name: enable MockFog Agent service
+#  systemd:
+#    name: "{{ service_name}}"
+#    state: started
