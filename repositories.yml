@@ -1,12 +1,12 @@
 ---
 # Node Agent
 na_repo: https://github.com/OpenFogStack/MockFog-Agent.git
-na_branch: merges
+na_branch: master
 
 # Node Manager
 nm_repo: https://github.com/OpenFogStack/MockFog-NodeManager.git
-nm_branch: merges
+nm_branch: master
 
 # IaC
 iac_repo: https://github.com/OpenFogStack/MockFog-IaC.git
-iac_branch: merges
+iac_branch: master
