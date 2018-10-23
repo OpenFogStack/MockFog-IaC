@@ -1,6 +1,6 @@
 ---
 
-- name: install git, gcc and pip
+- name: install git, gcc, pip and iperf
   yum:
     name: "{{ packages }}"
     state: latest
@@ -10,6 +10,7 @@
       - python-pip
       - gcc
       - iproute-tc
+      - iperf3
   tags: bootstrap
 
 - name: clone MockFog-Agent to /opt
@@ -79,8 +80,22 @@
       dest: "/etc/systemd/system/{{ service_name}}.service"
       src: agent.systemd.j2
       mode: 0644
-  notify:
-    - enable MockFog Agent service
+#  notify:
+#    - enable MockFog Agent service
+  tags: bootstrap
+
+- name: enable MockFog Agent service
+  systemd:
+    name: "{{ service_name}}"
+    state: started
+  tags: bootstrap
+
+- name: wait for the agents to be ready on port 5000
+  wait_for:
+    port: 5000
+    host: "{{ inventory_hostname }}"
+    delay: 5 
+    timeout: 60
   tags: bootstrap
 
 - name: Inform NodeManager that the agents are installed
