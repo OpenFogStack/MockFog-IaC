@@ -123,7 +123,7 @@
   ec2_eni:
     aws_access_key: "{{ ec2_access_key }}"
     aws_secret_key: "{{ ec2_secret_access_key }}"
-    security_groups: "{{ public_security_group.group_id }}"
+    security_groups: "{{ security_group.group_id }}"
     state: present
     attached: True
     device_index: 1
