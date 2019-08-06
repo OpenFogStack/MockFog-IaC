@@ -1,5 +1,7 @@
 # MockFog Infrastructure as Code
 
+The meta repository can be found at: https://github.com/OpenFogStack/MockFog-Meta
+
 ## Requirements
 
 - OS: Tested on Ubuntu 16.04
